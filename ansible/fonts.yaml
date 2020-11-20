@@ -1,0 +1,51 @@
+# - name: Download powerline-fonts repository from github
+#   git:
+#     repo: 'https://github.com/powerline/fonts.git'
+#     version: master
+#     dest: /tmp/powerline-fonts
+#     depth: "1"
+#   when: powerline_fonts is defined
+#   tags:
+#     - fonts
+#     - powerline-fonts
+
+# - name: Copying powerline-fonts
+#   command: cp -r /tmp/powerline-fonts/{{ item }} {{ fonts_dir }}
+#   loop:
+#   - "DroidSansMono"
+#   - "Meslo Dotted"
+#   - "Meslo Slashed"
+#   - "Roboto Mono"
+#   when: powerline_fonts is defined
+#   tags:
+#   - fonts
+#   - powerline-fonts
+
+- name: Download nerd-fonts repository from github
+  git:
+    repo: https://github.com/ryanoasis/nerd-fonts.git
+    version: master
+    dest: /tmp/nerd-fonts
+    depth: "1"
+  when: nerd_fonts is defined
+  tags:
+  - fonts
+  - nerd-fonts
+
+- name: Install nerd-fonts
+  command: cp -r /tmp/nerd-fonts/patched-fonts/{{ item }} {{ fonts_dir }}
+  loop:
+  - "DroidSansMono"
+  - "Meslo"
+  - "Go-Mono"
+  - "Ubuntu"
+  - "UbuntuMono"
+  when: powerline_fonts is defined
+  tags:
+  - fonts
+  - nerd-fonts
+
+- name: Configure font cache
+  command: fc-cache -vf {{ fonts_dir }}
+  ignore_errors: yes
+  when: ansible_system is Linux

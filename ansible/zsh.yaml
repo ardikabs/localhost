@@ -1,0 +1,23 @@
+- name: Configure zsh
+  shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+  tags:
+    - zsh
+
+- name: Configure zsh plugins
+  git:
+    dest: "{{ zsh_custom_dir }}/plugins/{{ item.plugin_name }}"
+    repo: "{{ item.plugin_repo }}"
+    version: master
+    depth: "1"
+  loop:
+  - plugin_name: zsh-syntax-highlighting
+    plugin_repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+  - plugin_name: zsh-autosuggestions
+    plugin_repo: https://github.com/zsh-users/zsh-autosuggestions
+  - plugin_name: zsh-completions
+    plugin_repo: https://github.com/zsh-users/zsh-completions
+  tags:
+    - zsh
+
+- name: Copy zshrc.d to local directory
+  command: cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/

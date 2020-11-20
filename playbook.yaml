@@ -1,0 +1,72 @@
+- name: Configure local workstation
+  hosts: localhost
+  gather_facts: yes
+  become: no
+  variables:
+    go_version: "1.13.5"
+    kubectl_version: "v1.19.4"
+    fonts_dir: "{% if ansible_system is 'Linux' %}{{ ansible_env.HOME }}/.local/share/fonts{% elif ansible_system is 'Darwin' %}{{ ansible_env.HOME }}/Library/Fonts{% endif %}"
+    gitconfig_dir: "{{ ansible_env.HOME }}/.local/git"
+    zsh_custom_dir: "{{ ansible_env.HOME }}/.oh-my-zsh/custom"
+    post_install: |
+      You need to change your current shell to use zsh.
+      With running the following commands:
+           chsh -s $(which zsh)
+
+      You also need to run keybase with running the following commands:
+            run_keybase
+
+      Then after that you need to import your current pgp key from keybase,
+      with running the following commands:
+            keybase pgp export -s -o /tmp/private.asc; gpg --import /tmp/private.asc
+
+  tasks:
+
+  - name: "Ensure directory exist"
+    file:
+      path: "{{ item }}"
+      state: "directory"
+      recurse: yes
+    loop:
+    - "{{ ansible_env.HOME }}/.local"
+    - "{{ fonts_dir }}"
+    - "{{ gitconfig_dir }}"
+    - "{{ zsh_custom_dir }}"
+    tags:
+      - directory
+
+  - name: Install required packages (APT)
+    apt:
+      pkg:
+        - curl
+        - git
+        - gnupg2
+        - tmux
+        - zsh
+        - vim
+        - fontconfig
+      state: latest
+    become: yes
+    tags:
+      - packages
+
+  - name: Download personal dotfiles
+    git:
+      repo: "https://github.com/ardikabs/dotfiles.git"
+      dest: /tmp/dotfiles
+      version: master
+      update: yes
+      force: yes
+    tags:
+      - dotfiles
+
+  - include_tasks: ansible/deb.yaml
+  - include_tasks: ansible/fonts.yaml
+  - include_tasks: ansible/zsh.yaml
+  - include_tasks: ansible/toolkit.yaml
+  - include_tasks: ansible/languages.yaml
+  - include_tasks: ansible/kubectl.yaml
+
+  - name: "Post installation"
+    debug:
+      msg: "{{ post_install.split('\n') }}"

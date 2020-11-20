@@ -1,0 +1,23 @@
+- name: Download Go v{{ go_version }}
+  shell: "curl -fs https://dl.google.com/go/go{{ go_version }}.{{ ansible_system | lower }}-amd64.tar.gz | sudo tar zxf - -C /usr/local"
+  tags:
+    - proglang
+    - golang
+
+- name: Install pyenv
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: "{{ ansible_env.HOME }}/.pyenv"
+    version: master
+    update: yes
+    depth: "1"
+  tags:
+    - proglang
+    - python
+
+- name: Install poetry
+  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+  ignore_errors: yes
+  tags:
+    - proglang
+    - python

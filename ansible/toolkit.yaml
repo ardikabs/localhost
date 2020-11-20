@@ -1,0 +1,78 @@
+- name: Download fuzzy finder (fzf)
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ ansible_env.HOME }}/.fzf"
+    version: master
+    depth: "1"
+  tags:
+    - fzf
+
+- name: Install fuzzy finder (fzf)
+  shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish"
+  args:
+    executable: /bin/zsh
+  tags:
+    - fzf
+
+- name: Configure tmux configuration
+  command: cp -fr /tmp/dotfiles/tmux/.tmux.conf {{ ansible_env.HOME }}
+  ignore_errors: yes
+  tags:
+    - tmux
+
+- name: Configure vim configuration
+  command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
+  ignore_errors: yes
+  tags:
+    - vim
+
+- name: Install direnv
+  shell: "curl -sfL https://direnv.net/install.sh | bash"
+  tags:
+    - direnv
+
+- name: Configure gpg-agent configuration
+  command: cp -fr /tmp/dotfiles/gpg/gpg-agent {{ ansible_env.HOME }}/.gnupg/
+  tags:
+    - gpg
+
+- name: Configure gpg sshcontrol configuration
+  command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ ansible_env.HOME }}/.gnupg/
+  tags:
+    - gpg
+
+- name: Configure user ssh configuration
+  command: cp -fr /tmp/dotfiles/ssh/config {{ ansible_env.HOME }}/.ssh/config
+  tags:
+    - ssh
+
+- name: Configure system ssh configuration
+  command: cp -fr /tmp/dotfiles/ssh/ssh_config /etc/ssh/ssh_config
+  become: yes
+  tags:
+    - ssh
+
+- name: Configure global gitconfig
+  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}/.gitconfig
+  tags:
+    - git-config
+
+- name: Configure global gitignore
+  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}/.gitignore
+  tags:
+    - git-config
+
+- name: Configure custom gitconfig
+  command: cp -fr /tmp/dotfiles/git/configs {{ gitconfig_dir }}
+  tags:
+    - git-config
+
+- name: Configure gittemplates
+  command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
+  tags:
+    - git-config
+
+- name: Configure git-custom-command
+  command: cp -fr /tmp/dotfiles/git/cmd/ /usr/local/bin/
+  tags:
+    - git-config
