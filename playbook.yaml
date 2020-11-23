@@ -60,12 +60,13 @@
     tags:
       - dotfiles
 
-  - include_tasks: ansible/deb.yaml
+  - include_tasks: ansible/debian_packages.yaml
   - include_tasks: ansible/fonts.yaml
   - include_tasks: ansible/zsh.yaml
   - include_tasks: ansible/toolkit.yaml
   - include_tasks: ansible/languages.yaml
   - include_tasks: ansible/kubectl.yaml
+  - include_tasks: ansible/cloud.yaml
 
   - name: "Post installation"
     debug:

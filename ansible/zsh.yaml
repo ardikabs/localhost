@@ -1,5 +1,5 @@
 - name: Configure zsh
-  shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+  shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
   tags:
     - zsh
 
@@ -20,4 +20,7 @@
     - zsh
 
 - name: Copy zshrc.d to local directory
-  command: cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/
+  command: "cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/"
+
+- name: Override local .zshrc
+  command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}/.zshrc"
