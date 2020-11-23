@@ -1,9 +1,9 @@
 
 - name: Download and install google cloud sdk
   shell: |
-    curl -fs https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-274.0.0-${OS}-x86_64.tar.gz | tar zxf - -C /usr/local && \
-     /bin/zsh /usr/local/bin/google-cloud-sdk/install.sh -q
-  arg:
+    curl -fs https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-274.0.0-{{ ansible_system | lower }}-x86_64.tar.gz | tar zxf - -C /usr/local && \
+     /bin/zsh /usr/local/google-cloud-sdk/install.sh -q
+  args:
     executable: /bin/zsh
   become: yes
   tags:
@@ -11,11 +11,16 @@
 
 - name: Download and install awscli
   shell: |
+    {% if ansible_system == "Linux" %}
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
       cd /tmp/ || exit && \
       unzip awscliv2.zip && \
       ./aws/install
-  arg:
+    {% elif ansible_system == "Darwin" %}
+      curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "/tmp/awscliv2.pkg" && \
+      installer -pkg /tmp/awscliv2.pkg -target /
+    {% endif %}
+  args:
     executable: /bin/zsh
   become: yes
   tags:
@@ -25,3 +30,5 @@
   file:
     path: "{{ ansible_env.HOME }}/.aws"
     state: directory
+  tags:
+    - awscli

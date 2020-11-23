@@ -6,7 +6,6 @@
 #     depth: "1"
 #   when: powerline_fonts is defined
 #   tags:
-#     - fonts
 #     - powerline-fonts
 
 # - name: Copying powerline-fonts
@@ -18,7 +17,6 @@
 #   - "Roboto Mono"
 #   when: powerline_fonts is defined
 #   tags:
-#   - fonts
 #   - powerline-fonts
 
 - name: Download nerd-fonts repository from github
@@ -27,9 +25,7 @@
     version: master
     dest: /tmp/nerd-fonts
     depth: "1"
-  when: nerd_fonts is defined
   tags:
-  - fonts
   - nerd-fonts
 
 - name: Install nerd-fonts
@@ -40,12 +36,10 @@
   - "Go-Mono"
   - "Ubuntu"
   - "UbuntuMono"
-  when: powerline_fonts is defined
   tags:
-  - fonts
   - nerd-fonts
 
 - name: Configure font cache
   command: fc-cache -vf {{ fonts_dir }}
   ignore_errors: yes
-  when: ansible_system is Linux
+  when: ansible_system == "Linux"

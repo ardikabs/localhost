@@ -1,0 +1,58 @@
+- name: "Ensure directory exist"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+    recurse: yes
+  loop:
+  - "{{ localbin_dir }}"
+  - "{{ gitconfig_dir }}"
+  - "{{ fonts_dir }}"
+  tags:
+    - directory
+
+- name: Install required packages (APT)
+  apt:
+    pkg:
+      - wget
+      - curl
+      - git
+      - zsh
+      - gnupg2
+      - tmux
+      - vim
+      - unzip
+      - fontconfig
+      - ca-certificates
+      - rsync
+      - make
+      - openssh-client
+      - build-essential
+      - llvm
+      - tk-dev
+      - xz-utils
+      - zlib1g-dev
+      - libssl-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+      - libffi-dev
+      - liblzma-dev
+      - python3-openssl
+      - python3-dev
+    state: latest
+    update_cache: yes
+  become: yes
+  tags:
+    - packages
+
+- name: Download personal dotfiles
+  git:
+    repo: "https://github.com/ardikabs/dotfiles.git"
+    dest: /tmp/dotfiles
+    version: master
+    update: yes
+    force: yes
+  tags:
+    - dotfiles

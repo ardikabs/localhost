@@ -1,11 +1,12 @@
 - name: Configure zsh
   shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+  ignore_errors: yes
   tags:
-    - zsh
+    - zsh-install
 
 - name: Configure zsh plugins
   git:
-    dest: "{{ zsh_custom_dir }}/plugins/{{ item.plugin_name }}"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/{{ item.plugin_name }}"
     repo: "{{ item.plugin_repo }}"
     version: master
     depth: "1"
@@ -17,10 +18,26 @@
   - plugin_name: zsh-completions
     plugin_repo: https://github.com/zsh-users/zsh-completions
   tags:
-    - zsh
+    - zsh-plugins
+
+- name: Configure zsh themes
+  git:
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/{{ item.plugin_name }}"
+    repo: "{{ item.plugin_repo }}"
+    version: master
+    depth: "1"
+  loop:
+  - plugin_name: powerelevel10k
+    plugin_repo: https://github.com/romkatv/powerlevel10k.git
+  tags:
+    - zsh-themes
 
 - name: Copy zshrc.d to local directory
   command: "cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/"
+  tags:
+    - zsh-rc
 
 - name: Override local .zshrc
   command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}/.zshrc"
+  tags:
+    - zsh-rc

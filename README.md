@@ -1,5 +1,5 @@
-# local-workstation
-My personal local workstation both for Linux and Mac OSX.
+# ansible-local-workstation
+My personal local workstation provisioner using Ansible both for GNU/Linux and Mac OSX.
 
 ## Prerequisites
 * Ansible v2.9
@@ -27,5 +27,3 @@ My personal local workstation both for Linux and Mac OSX.
 ## References
 * [Stupid Unix Tricks](https://sneak.berlin/20191011/stupid-unix-tricks/)
 * [Hypermodern Python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
-
-# TODO: Testing

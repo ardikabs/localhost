@@ -4,8 +4,9 @@
     url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/{{ ansible_system | lower }}/amd64/kubectl"
     dest: /usr/local/bin/kubectl
     mode: "777"
+  become: yes
   tags:
-    - kubectl
+    - kubectl-binary
 
 - name: Install kubectl krew
   shell: |-
@@ -14,20 +15,20 @@
     tar zxvf krew.tar.gz &&
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')" && "$KREW" install krew
   tags:
-    - kubectl
+    - kubectl-krew
 
 - name: Install personal kubectl plugin
   get_url:
-    url:
-    dest: "{{ ansible_env.HOME }}/.krew/bin/kubectl-version_manager"
+    url: "{{ item.repo }}"
+    dest: "{{ ansible_env.HOME }}/.krew/bin/{{ item.name }}"
     mode: "777"
+  become: yes
   loop:
     - repo: https://raw.githubusercontent.com/ardikabs/kubectl-version_manager/master/kubectl-version_manager
       name: kubectl-version_manager
-    - repo: https://raw.githubusercontent.com/ardikabs/etc/master/kubectl/ssh-jump/ssh-jump
+    - repo: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump
       name: kubectl-ssh_jump
   tags:
-    - kubectl
     - kubectl-plugins
 
 - name: Install kubectl plugins
@@ -38,5 +39,4 @@
     - ingress-nginx
     - cert-manager
   tags:
-    - kubectl
     - kubectl-plugins

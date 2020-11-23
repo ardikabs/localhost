@@ -32,7 +32,7 @@
     - direnv
 
 - name: Configure gpg-agent configuration
-  command: cp -fr /tmp/dotfiles/gpg/gpg-agent {{ ansible_env.HOME }}/.gnupg/
+  command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ ansible_env.HOME }}/.gnupg/
   tags:
     - gpg
 
@@ -55,24 +55,29 @@
 - name: Configure global gitconfig
   command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}/.gitconfig
   tags:
-    - git-config
+    - git
+    - gitconfig
 
 - name: Configure global gitignore
   command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}/.gitignore
   tags:
-    - git-config
+    - git
+    - gitignore
 
 - name: Configure custom gitconfig
   command: cp -fr /tmp/dotfiles/git/configs {{ gitconfig_dir }}
   tags:
-    - git-config
+    - git
+    - gitconfig
 
 - name: Configure gittemplates
   command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
   tags:
-    - git-config
+    - git
+    - gittemplates
 
 - name: Configure git-custom-command
-  command: cp -fr /tmp/dotfiles/git/cmd/ /usr/local/bin/
+  command: cp -fr /tmp/dotfiles/git/cmd/ {{ local_bin_dir }}
   tags:
-    - git-config
+    - git
+    - git-custom-command
