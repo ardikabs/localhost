@@ -81,3 +81,13 @@
   tags:
     - git
     - git-custom-command
+
+- name: Install mozilla sops {{ sops_version }}
+  get_url:
+    url: "https://github.com/mozilla/sops/releases/download/{{ sops_version }}/sops-{{ sops_version }}.{{ ansible_system | lower }}"
+    dest: /usr/local/bin/sops
+    mode: "777"
+  become: yes
+  tags:
+    - binary
+    - sops

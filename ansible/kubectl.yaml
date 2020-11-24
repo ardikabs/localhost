@@ -6,7 +6,8 @@
     mode: "777"
   become: yes
   tags:
-    - kubectl-binary
+    - binary
+    - kubectl
 
 - name: Install kubectl krew
   shell: |-

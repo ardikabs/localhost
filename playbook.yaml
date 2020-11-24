@@ -16,7 +16,14 @@
       - always
 
   tasks:
-    - include: ansible/common.yaml
+    - include: ansible/common.linux.yaml
+      when: ansible_system == "Linux"
+      tags:
+        - common
+        - packages
+
+    - include: ansible/common.darwin.yaml
+      when: ansible_system == "Darwin"
       tags:
         - common
         - packages

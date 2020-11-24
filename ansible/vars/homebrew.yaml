@@ -1,0 +1,26 @@
+brew_cask_packages:
+  - firefox
+  - google-chrome
+  - google-drive
+  - google-hangouts
+  - iterm2
+  - slack
+  - spotify
+  - visual-studio-code
+  - notion
+  - keybase
+  - discord
+  - telegram
+brew_packages:
+  - git
+  - unzip
+  - gnupg2
+  - jq
+  - nmap
+  - tmux
+  - zsh
+  - sops
+  - python
+  - bind
+install_homebrew_if_missing: yes
+upgrade_homebrew_packages: yes
