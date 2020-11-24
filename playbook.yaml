@@ -2,52 +2,55 @@
   hosts: localhost
   gather_facts: yes
   become: no
+  pre_tasks:
+    - name: Populate variables
+      include_vars:
+        dir: ansible/vars
+        ignore_unknown_extensions: True
+        extensions:
+        - ''
+        - 'yaml'
+        - 'yml'
+        - 'json'
+      tags:
+      - always
+
   tasks:
-  - name: Populate variables
-    include_vars:
-      dir: vars
-      ignore_unknown_extensions: True
-      extensions:
-      - ''
-      - 'yaml'
-      - 'yml'
-      - 'json'
+    - include: ansible/common.yaml
+      tags:
+        - common
+        - packages
 
-  - include: ansible/common.yaml
-    tags:
-      - common
-      - packages
+    - include: ansible/debian_packages.yaml
+      tags:
+        - packages
 
-  - include: ansible/debian_packages.yaml
-    tags:
-      - packages
+    - include: ansible/fonts.yaml
+      tags:
+        - fonts
 
-  - include: ansible/fonts.yaml
-    tags:
-      - fonts
+    - include: ansible/zsh.yaml
+      tags:
+        - zsh
 
-  - include: ansible/zsh.yaml
-    tags:
-      - zsh
+    - include: ansible/toolkit.yaml
+      tags:
+        - toolkit
 
-  - include: ansible/toolkit.yaml
-    tags:
-      - toolkit
+    - include: ansible/languages.yaml
+      tags:
+        - proglang
 
-  - include: ansible/languages.yaml
-    tags:
-      - proglang
+    - include: ansible/kubectl.yaml
+      tags:
+        - kubectl
 
-  - include: ansible/kubectl.yaml
-    tags:
-      - kubectl
+    - include: ansible/cloud.yaml
+      tags:
+        - cloud
 
-  - include: ansible/cloud.yaml
-    tags:
-      - cloud
-
-  - name: "Post installation"
-    debug:
-      msg: "{{ post_install.split('\n') }}"
-    tags:
-      - common
+    - name: "Post installation"
+      debug:
+        msg: "{{ post_install.split('\n') }}"
+      tags:
+        - common
