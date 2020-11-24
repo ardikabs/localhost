@@ -2,25 +2,17 @@
   hosts: localhost
   gather_facts: yes
   become: no
-  vars:
-    go_version: "1.13.5"
-    kubectl_version: "v1.19.4"
-    fonts_dir: "{% if ansible_system == 'Linux' %}{{ ansible_env.HOME }}/.local/share/fonts{% elif ansible_system == 'Darwin' %}{{ ansible_env.HOME }}/Library/Fonts{% endif %}"
-    localbin_dir: "{{ ansible_env.HOME }}/.local/bin"
-    gitconfig_dir: "{{ ansible_env.HOME }}/.local/git"
-    post_install: |
-      You need to change your current shell to use zsh.
-      With running the following commands:
-           chsh -s $(which zsh)
-
-      You also need to run keybase with running the following commands:
-            run_keybase
-
-      Then after that you need to import your current pgp key from keybase,
-      with running the following commands:
-            keybase pgp export -s | gpg --import
-
   tasks:
+  - name: Populate variables
+    include_vars:
+      dir: vars
+      ignore_unknown_extensions: True
+      extensions:
+      - ''
+      - 'yaml'
+      - 'yml'
+      - 'json'
+
   - include: ansible/common.yaml
     tags:
       - common

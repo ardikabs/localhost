@@ -77,7 +77,7 @@
     - gittemplates
 
 - name: Configure git-custom-command
-  command: cp -fr /tmp/dotfiles/git/cmd/ {{ local_bin_dir }}
+  command: cp -fr /tmp/dotfiles/git/cmd/ {{ localbin_dir }}
   tags:
     - git
     - git-custom-command
