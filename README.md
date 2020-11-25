@@ -5,6 +5,7 @@ My personal local workstation provisioner using Ansible both for GNU/Linux and M
 * Ansible v2.9
 
 ## List installed tools
+### Linux
 * zsh
 * git
 * tmux
@@ -13,16 +14,43 @@ My personal local workstation provisioner using Ansible both for GNU/Linux and M
 * pyenv
 * poetry
 * fzf
+* sops
 * bat
 * Go
-* kubectl
-* kubectl-krew plugin
-* kubectl-version_manager plugin
-* kubectl-ssh_jump plugin
-* kubectl-cert_manager plugin
-* kubectl-ingress_nginx plugin
-* kubectl-ns plugin
-* kubectl-ctx plugin
+
+### MacOSX
+#### brew
+* git
+* unzip
+* gnupg2
+* jq
+* nmap
+* tmux
+* zsh
+* sops
+* python
+* bind
+* bat
+* iproute2mac
+* pem2openpgp
+* pyenv
+* poetry
+* fzf
+* sops
+
+#### brew cask
+* firefox
+* google-chrome
+* google-drive
+* google-hangouts
+* iterm2
+* slack
+* spotify
+* visual-studio-code
+* notion
+* keybase
+* discord
+* telegram
 
 ## References
 * [Stupid Unix Tricks](https://sneak.berlin/20191011/stupid-unix-tricks/)
