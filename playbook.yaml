@@ -22,14 +22,15 @@
         - common
         - packages
 
+    - include: ansible/debian_packages.yaml
+      when: ansible_system == "Linux" && ansible_os_family == "Debian"
+      tags:
+        - packages
+
     - include: ansible/common.darwin.yaml
       when: ansible_system == "Darwin"
       tags:
         - common
-        - packages
-
-    - include: ansible/debian_packages.yaml
-      tags:
         - packages
 
     - include: ansible/fonts.yaml
