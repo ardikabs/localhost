@@ -51,3 +51,6 @@ packages:
   - python3-dev
   - shellcheck
   - dnsutils
+  - oathtool
+  - procps
+  - docker.io
