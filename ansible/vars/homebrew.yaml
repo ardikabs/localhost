@@ -17,10 +17,14 @@ brew_packages:
   - gnupg2
   - jq
   - nmap
+  - make
   - tmux
   - zsh
   - sops
   - python
   - bind
+  - bat
+  - iproute2mac
+  - pem2openpgp
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes
