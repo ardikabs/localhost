@@ -22,7 +22,7 @@
         - common
         - packages
 
-    - include: ansible/debian_packages.yaml
+    - include: ansible/packages-debian.yaml
       when: ansible_system == "Linux" && ansible_os_family == "Debian"
       tags:
         - packages
