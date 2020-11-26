@@ -9,6 +9,9 @@
 
 - name: Install direnv
   shell: "curl -sfL https://direnv.net/install.sh | bash"
+  args:
+    warn: false
+  become: yes
   tags:
     - direnv
 
