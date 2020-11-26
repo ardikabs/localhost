@@ -29,7 +29,7 @@
     version: master
     depth: "1"
   loop:
-  - plugin_name: powerelevel10k
+  - plugin_name: powerlevel10k
     plugin_repo: https://github.com/romkatv/powerlevel10k.git
   tags:
     - zsh-themes
