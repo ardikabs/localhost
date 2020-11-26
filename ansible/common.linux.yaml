@@ -63,7 +63,7 @@
 - name: Adding user {{ ansible_env.USER }} to docker group
   user:
     name: "{{ ansible_env.USER }}"
-    groups: sudo
+    groups: docker
     append: yes
   become: yes
   tags:
