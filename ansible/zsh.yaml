@@ -36,11 +36,13 @@
   command: "cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/"
   tags:
     - zsh-rc
+    - dotfiles
 
 - name: Override local .zshrc
   command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}/.zshrc"
   tags:
     - zsh-rc
+    - dotfiles
 
 - name: Modify shell user {{ ansible_env.USER }} to /bin/zsh
   user:

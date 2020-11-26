@@ -7,6 +7,11 @@
   tags:
     - fzf
 
+- name: Install direnv
+  shell: "curl -sfL https://direnv.net/install.sh | bash"
+  tags:
+    - direnv
+
 - name: Install fuzzy finder (fzf)
   shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish"
   args:
@@ -19,68 +24,74 @@
   ignore_errors: yes
   tags:
     - tmux
+    - dotfiles
 
 - name: Configure vim configuration
   command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
   ignore_errors: yes
   tags:
     - vim
-
-- name: Install direnv
-  shell: "curl -sfL https://direnv.net/install.sh | bash"
-  tags:
-    - direnv
+    - dotfiles
 
 - name: Configure gpg-agent configuration
   command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ ansible_env.HOME }}/.gnupg/
   tags:
     - gpg
+    - dotfiles
 
 - name: Configure gpg sshcontrol configuration
   command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ ansible_env.HOME }}/.gnupg/
   tags:
     - gpg
+    - dotfiles
 
 - name: Configure user ssh configuration
   command: cp -fr /tmp/dotfiles/ssh/config {{ ansible_env.HOME }}/.ssh/config
   tags:
     - ssh
+    - dotfiles
 
 - name: Configure system ssh configuration
   command: cp -fr /tmp/dotfiles/ssh/ssh_config /etc/ssh/ssh_config
   become: yes
   tags:
     - ssh
+    - dotfiles
 
 - name: Configure global gitconfig
   command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}/.gitconfig
   tags:
     - git
     - gitconfig
+    - dotfiles
 
 - name: Configure global gitignore
   command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}/.gitignore
   tags:
     - git
     - gitignore
+    - dotfiles
 
 - name: Configure custom gitconfig
   command: cp -fr /tmp/dotfiles/git/configs {{ gitconfig_dir }}
   tags:
     - git
     - gitconfig
+    - dotfiles
 
 - name: Configure gittemplates
   command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
   tags:
     - git
     - gittemplates
+    - dotfiles
 
 - name: Configure git-custom-command
   command: cp -fr /tmp/dotfiles/git/cmd/ {{ localbin_dir }}
   tags:
     - git
     - git-custom-command
+    - dotfiles
 
 - name: Install mozilla sops {{ sops_version }}
   get_url:
