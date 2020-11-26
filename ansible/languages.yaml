@@ -16,7 +16,7 @@
 
 - name: Install pyenv-virtualenv
   git:
-    repo: git clone https://github.com/yyuu/pyenv-virtualenv.git
+    repo: https://github.com/yyuu/pyenv-virtualenv.git
     dest: "{{ ansible_env.HOME }}/.pyenv/plugins/pyenv-virtualenv"
     version: master
     update: yes
