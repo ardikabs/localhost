@@ -35,7 +35,7 @@
         - packages
 
     - include: ansible/packages-debian.yaml
-      when: ansible_system == "Linux" && ansible_os_family == "Debian"
+      when: ansible_system == "Linux" and ansible_os_family == "Debian"
       tags:
         - common
         - packages
