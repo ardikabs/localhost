@@ -1,6 +1,8 @@
 - name: Configure zsh
   shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
   ignore_errors: yes
+  args:
+    warn: false
   tags:
     - zsh-install
 
