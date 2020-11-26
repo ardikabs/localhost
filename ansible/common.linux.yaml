@@ -1,34 +1,11 @@
-- name: "Ensure directory exist"
-  file:
-    path: "{{ item }}"
-    state: "directory"
-    recurse: yes
-  loop:
-  - "{{ localbin_dir }}"
-  - "{{ gitconfig_dir }}"
-  - "{{ fonts_dir }}"
-  tags:
-    - directory
-
-- name: Install required packages (APT)
+- name: Install required packages
   apt:
-    pkg: "{{ packages }}"
+    pkg: "{{ apt_packages }}"
     state: latest
     update_cache: yes
   become: yes
-  when: ansible_system == "Linux" and ansible_os_family == "Debian"
   tags:
-    - packages
-
-- name: Install required packages (YUM)
-  yum:
-    name: "{{ packages }}"
-    state: latest
-    update_cache: yes
-  become: yes
-  when: ansible_system == "Linux" and ansible_os_family == "RedHat"
-  tags:
-    - packages
+    - apt
 
 - name: Download personal dotfiles
   git:
@@ -39,3 +16,55 @@
     force: yes
   tags:
     - dotfiles
+
+- name: Purge old docker packages
+  apt:
+    name:
+    - docker
+    - docker.io
+    - docker-engine
+    - runc
+    - containerd
+    - lxc-docker
+    state: absent
+    purge: yes
+  become: yes
+  tags:
+    - docker
+
+- name: Add Docker PGP Key
+  apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    state: present
+  become: yes
+  tags:
+    - docker
+
+- name: Add Docker APT Repo
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    state: present
+  become: yes
+  tags:
+    - docker
+
+- name: Installing Docker latest
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+    update_cache: yes
+  become: yes
+  tags:
+    - docker
+
+- name: Adding user {{ ansible_env.USER }} to docker group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: sudo
+    append: yes
+  become: yes
+  tags:
+    - docker

@@ -13,7 +13,19 @@
         - 'yml'
         - 'json'
       tags:
-      - always
+        - always
+
+    - name: "Ensure directory exist"
+      file:
+        path: "{{ item }}"
+        state: "directory"
+        recurse: yes
+      loop:
+      - "{{ localbin_dir }}"
+      - "{{ gitconfig_dir }}"
+      - "{{ fonts_dir }}"
+      tags:
+        - always
 
   tasks:
     - include: ansible/common.linux.yaml
@@ -25,6 +37,7 @@
     - include: ansible/packages-debian.yaml
       when: ansible_system == "Linux" && ansible_os_family == "Debian"
       tags:
+        - common
         - packages
 
     - include: ansible/common.darwin.yaml

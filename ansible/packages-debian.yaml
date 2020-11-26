@@ -4,6 +4,7 @@
     url: https://github.com/sharkdp/bat/releases/download/v0.16.0/bat_0.16.0_amd64.deb
     dest: /tmp/bat.deb
   tags:
+    - apt
     - bat
 
 - name: Install bat.deb
@@ -11,6 +12,7 @@
     deb: /tmp/bat.deb
   become: yes
   tags:
+    - apt
     - bat
 
 - name: Download keybase.deb
@@ -18,6 +20,7 @@
     url: https://prerelease.keybase.io/keybase_amd64.deb
     dest: /tmp/keybase_amd64.deb
   tags:
+    - apt
     - keybase
 
 - name: Install keybase.deb
@@ -25,4 +28,5 @@
     deb: /tmp/keybase_amd64.deb
   become: yes
   tags:
+    - apt
     - keybase

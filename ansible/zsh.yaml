@@ -41,3 +41,10 @@
   command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}/.zshrc"
   tags:
     - zsh-rc
+
+- name: Modify shell user {{ ansible_env.USER }} to /bin/zsh
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh
+  tags:
+    - zsh

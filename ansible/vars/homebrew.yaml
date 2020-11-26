@@ -1,3 +1,4 @@
+# ------ Homebrew Packages ------
 brew_cask_packages:
   - firefox
   - google-chrome
