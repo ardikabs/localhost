@@ -8,6 +8,7 @@ apt_packages:
   - zsh
   - gnupg
   - gnupg-agent
+  - pinentry-tty
   - tmux
   - vim
   - unzip
