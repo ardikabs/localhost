@@ -29,5 +29,7 @@ brew_packages:
   - pem2openpgp
   - oathtool
   - docker
+  - ripgrep
+  - fd
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes

@@ -37,3 +37,5 @@ apt_packages:
   - dnsutils
   - oathtool
   - procps
+  - fd-find
+  - ripgrep
