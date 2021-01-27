@@ -75,18 +75,25 @@
     - gitignore
     - dotfiles
 
-- name: Configure custom gitconfig
-  command: cp -fr /tmp/dotfiles/git/configs {{ gitconfig_dir }}
+- name: Configure additional gitconfigs
+  command: cp -fr /tmp/dotfiles/git/.gitconfigs {{ gitconfig_dir }}
   tags:
     - git
-    - gitconfig
+    - gitconfigs
     - dotfiles
 
-- name: Configure gittemplates
+- name: Configure git templates
   command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
   tags:
     - git
     - gittemplates
+    - dotfiles
+
+- name: Configure git users
+  command: cp -fr /tmp/dotfiles/git/.gitusers {{ gitconfig_dir }}
+  tags:
+    - git
+    - gitusers
     - dotfiles
 
 - name: Configure git-custom-command
