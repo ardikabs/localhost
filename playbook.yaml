@@ -50,14 +50,6 @@
       tags:
         - fonts
 
-    - include: ansible/zsh.yaml
-      tags:
-        - zsh
-
-    - include: ansible/toolkit.yaml
-      tags:
-        - toolkit
-
     - include: ansible/languages.yaml
       tags:
         - proglang
@@ -69,6 +61,14 @@
     - include: ansible/cloud.yaml
       tags:
         - cloud
+
+    - include: ansible/zsh.yaml
+      tags:
+        - zsh
+
+    - include: ansible/toolkit.yaml
+      tags:
+        - toolkit
 
     - name: "Post installation"
       debug:
