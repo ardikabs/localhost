@@ -14,8 +14,8 @@
     {% if ansible_system == "Linux" %}
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
       cd /tmp/ || exit && \
-      unzip awscliv2.zip && \
-      ./aws/install
+      unzip -qq -o awscliv2.zip && \
+      ./aws/install --update
     {% elif ansible_system == "Darwin" %}
       curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "/tmp/awscliv2.pkg" && \
       installer -pkg /tmp/awscliv2.pkg -target /
