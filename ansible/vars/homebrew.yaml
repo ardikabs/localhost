@@ -26,8 +26,8 @@ brew_packages:
   - bind
   - bat
   - iproute2mac
-  - pem2openpgp
-  - oathtool
+  - monkeysphere
+  - oath-toolkit
   - docker
   - ripgrep
   - fd

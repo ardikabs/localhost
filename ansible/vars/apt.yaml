@@ -36,6 +36,7 @@ apt_packages:
   - shellcheck
   - dnsutils
   - oathtool
+  - monkeysphere
   - procps
   - fd-find
   - ripgrep
