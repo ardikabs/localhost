@@ -11,7 +11,7 @@ post_install: |
         keybase pgp export -s | gpg --import
 
 # ------ Binary version ------
-go_version: "1.14.13"
+go_version: "1.16.5"
 kubectl_version: "v1.19.4"
 sops_version: "v3.6.1"
 
@@ -19,6 +19,8 @@ sops_version: "v3.6.1"
 fonts_dir: "{% if ansible_system == 'Linux' %}{{ ansible_env.HOME }}/.local/share/fonts{% elif ansible_system == 'Darwin' %}{{ ansible_env.HOME }}/Library/Fonts{% endif %}"
 localbin_dir: "{{ ansible_env.HOME }}/.local/bin"
 gitconfig_dir: "{{ ansible_env.HOME }}/.local/git"
+gnupg_dir : "{{ ansible_env.HOME }}/.gnupg"
+ssh_dir : "{{ ansible_env.HOME }}/.ssh"
 
 # ------ Fonts ------
 powerline_fonts: no

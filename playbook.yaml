@@ -24,6 +24,8 @@
       - "{{ localbin_dir }}"
       - "{{ gitconfig_dir }}"
       - "{{ fonts_dir }}"
+      - "{{ gnupg_dir }}"
+      - "{{ ssh_dir }}"
       tags:
         - always
 

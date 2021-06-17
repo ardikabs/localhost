@@ -41,7 +41,7 @@
     - dotfiles
 
 - name: Override local .zshrc
-  command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}/.zshrc"
+  command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}"
   tags:
     - zsh-rc
     - dotfiles

@@ -37,19 +37,19 @@
     - dotfiles
 
 - name: Configure gpg-agent configuration
-  command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ ansible_env.HOME }}/.gnupg/
+  command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ gnupg_dir }}
   tags:
     - gpg
     - dotfiles
 
 - name: Configure gpg sshcontrol configuration
-  command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ ansible_env.HOME }}/.gnupg/
+  command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ gnupg_dir }}
   tags:
     - gpg
     - dotfiles
 
 - name: Configure user ssh configuration
-  command: cp -fr /tmp/dotfiles/ssh/config {{ ansible_env.HOME }}/.ssh/config
+  command: cp -fr /tmp/dotfiles/ssh/config {{ ssh_dir }}
   tags:
     - ssh
     - dotfiles
@@ -62,14 +62,14 @@
     - dotfiles
 
 - name: Configure global gitconfig
-  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}/.gitconfig
+  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}
   tags:
     - git
     - gitconfig
     - dotfiles
 
 - name: Configure global gitignore
-  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}/.gitignore
+  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}
   tags:
     - git
     - gitignore
