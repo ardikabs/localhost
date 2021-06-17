@@ -29,6 +29,16 @@
     - tmux
     - dotfiles
 
+- name: Download tmux plugin manager
+  git:
+    repo: 'https://github.com/tmux-plugins/tpm.git'
+    version: master
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+    depth: "1"
+  tags:
+    - tmux
+    - dotfiles
+
 - name: Configure vim configuration
   command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
   ignore_errors: yes
