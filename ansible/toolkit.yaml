@@ -97,7 +97,7 @@
     - dotfiles
 
 - name: Configure git-custom-command
-  command: cp -fr /tmp/dotfiles/git/cmd/ {{ localbin_dir }}
+  command: cp -fr /tmp/dotfiles/git/cmd/ {{ gitconfig_dir }}
   tags:
     - git
     - git-custom-command
