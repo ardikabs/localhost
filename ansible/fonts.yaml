@@ -19,27 +19,21 @@
   tags:
   - powerline-fonts
 
-- name: Download nerd-fonts repository from github
-  git:
-    repo: https://github.com/ryanoasis/nerd-fonts.git
-    version: v2.1.0
-    dest: /tmp/nerd-fonts
-    depth: "1"
+- name: Download nerd-fonts
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/{{ item }}.zip
+    dest: "{{ fonts_dir }}"
+    remote_src: yes
   when: nerd_fonts
+  loop:
+    - "DroidSansMono"
+    - "Meslo"
+    - "Go-Mono"
+    - "Ubuntu"
+    - "UbuntuMono"
   tags:
   - nerd-fonts
 
-- name: Install nerd-fonts
-  command: cp -r /tmp/nerd-fonts/patched-fonts/{{ item }} {{ fonts_dir }}
-  loop:
-  - "DroidSansMono"
-  - "Meslo"
-  - "Go-Mono"
-  - "Ubuntu"
-  - "UbuntuMono"
-  when: nerd_fonts
-  tags:
-  - nerd-fonts
 
 - name: Configure font cache
   command: fc-cache -vf {{ fonts_dir }}
