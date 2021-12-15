@@ -24,8 +24,7 @@ ssh_dir : "{{ ansible_env.HOME }}/.ssh"
 powerline_fonts: no
 nerd_fonts: yes
 
-
-# ------ asdf plugins ------
+# ------ plugins ------
 asdf_plugins:
   - name: direnv
     repo: ""
@@ -35,10 +34,26 @@ asdf_plugins:
     repo: ""
     versions: ["1.20.13"]
     global: "1.20.13"
+  - name: kubetail
+    repo: "https://github.com/janpieper/asdf-kubetail.git"
+    versions: ["1.6.13"]
+    global: "1.6.13"
   - name: helm
     repo: ""
     versions: ["3.2.0"]
     global: "3.2.0"
+  - name: helm-diff
+    repo: ""
+    versions: ["3.1.3"]
+    global: "3.1.3"
+  - name: helmfile
+    repo: ""
+    versions: ["0.142.0"]
+    global: "0.142.0"
+  - name: kustomize
+    repo: ""
+    versions: ["4.4.1"]
+    global: "4.4.1"
   - name: consul
     repo: ""
     versions: ["1.10.3"]
@@ -63,3 +78,20 @@ asdf_plugins:
     repo: ""
     versions: ["1.16.12", "1.17.5"]
     global: "1.16.12"
+  - name: istioctl
+    repo: https://github.com/virtualstaticvoid/asdf-istioctl
+    versions: ["1.10.6"]
+    global: "1.10.6"
+
+kubectl_plugins:
+  - ctx
+  - ns
+  - ingress-nginx
+  - cert-manager
+  - istiolog
+
+kubectl_plugins_unofficial:
+  - name: kubectl-version_manager
+    url: https://raw.githubusercontent.com/ardikabs/kubectl-version_manager/master/kubectl-version_manager
+  - name: kubectl-ssh_jump
+    url: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump

@@ -7,27 +7,20 @@
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')" && "$KREW" install krew
   tags:
     - kubectl-krew
+    - kubectl-plugins
 
 - name: Install personal kubectl plugin
   get_url:
-    url: "{{ item.repo }}"
+    url: "{{ item.url }}"
     dest: "{{ ansible_env.HOME }}/.krew/bin/{{ item.name }}"
     mode: "777"
   become: yes
-  loop:
-    - repo: https://raw.githubusercontent.com/ardikabs/kubectl-version_manager/master/kubectl-version_manager
-      name: kubectl-version_manager
-    - repo: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump
-      name: kubectl-ssh_jump
+  loop: "{{ kubectl_plugins_unofficial }}"
   tags:
     - kubectl-plugins
 
 - name: Install kubectl plugins
   command: "{{ ansible_env.HOME }}/.krew/bin/kubectl-krew install {{ item }}"
-  loop:
-    - ctx
-    - ns
-    - ingress-nginx
-    - cert-manager
+  loop: "{{ kubectl_plugins }}"
   tags:
     - kubectl-plugins
