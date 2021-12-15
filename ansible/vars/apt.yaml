@@ -40,3 +40,4 @@ apt_packages:
   - procps
   - fd-find
   - ripgrep
+  - coreutils

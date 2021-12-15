@@ -11,8 +11,6 @@ post_install: |
         keybase pgp export -s | gpg --import
 
 # ------ Binary version ------
-go_version: "1.16.5"
-kubectl_version: "v1.19.4"
 sops_version: "v3.6.1"
 
 # ------ Directory ------
@@ -25,3 +23,43 @@ ssh_dir : "{{ ansible_env.HOME }}/.ssh"
 # ------ Fonts ------
 powerline_fonts: no
 nerd_fonts: yes
+
+
+# ------ asdf plugins ------
+asdf_plugins:
+  - name: direnv
+    repo: ""
+    versions: ["2.28.0"]
+    global: "2.28.0"
+  - name: kubectl
+    repo: ""
+    versions: ["1.20.13"]
+    global: "1.20.13"
+  - name: helm
+    repo: ""
+    versions: ["3.2.0"]
+    global: "3.2.0"
+  - name: consul
+    repo: ""
+    versions: ["1.10.3"]
+    global: "1.10.3"
+  - name: packer
+    repo: ""
+    versions: ["1.7.8"]
+    global: "1.7.8"
+  - name: terraform
+    repo: ""
+    versions: ["0.15.5", "1.1.0"]
+    global: "0.15.5"
+  - name: gcloud
+    repo: ""
+    versions: ["367.0.0"]
+    global: "367.0.0"
+  - name: awscli
+    repo: ""
+    versions: ["2.2.22"]
+    global: "2.2.22"
+  - name: golang
+    repo: ""
+    versions: ["1.16.12", "1.17.5"]
+    global: "1.16.12"

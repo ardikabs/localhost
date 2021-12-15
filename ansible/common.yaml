@@ -1,0 +1,51 @@
+
+- name: Download personal dotfiles
+  git:
+    repo: "https://github.com/ardikabs/dotfiles.git"
+    dest: /tmp/dotfiles
+    version: master
+    update: yes
+    force: yes
+  tags:
+    - common
+    - dotfiles
+
+- name: Download asdf
+  git:
+    repo: "https://github.com/asdf-vm/asdf.git"
+    dest: "{{ ansible_env.HOME }}/.asdf"
+    version: v0.9.0
+    update: yes
+    force: yes
+  tags:
+    - common
+
+- name: Download asdf plugins
+  shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf plugin add {{ item.name }} {{ item.repo | default() }}"
+  args:
+    executable: /bin/zsh
+  become: yes
+  loop: "{{ asdf_plugins }}"
+  tags:
+    - common
+    - asdf
+
+- name: Install asdf plugins
+  shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf install {{ item.0.name }} {{ item.1 }}"
+  args:
+    executable: /bin/zsh
+  become: yes
+  loop: "{{ asdf_plugins | subelements('versions') }}"
+  tags:
+    - common
+    - asdf
+
+- name: Set global asdf plugins
+  shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf global {{ item.name }} {{ item.global }}"
+  args:
+    executable: /bin/zsh
+  become: yes
+  loop: "{{ asdf_plugins }}"
+  tags:
+    - common
+    - asdf

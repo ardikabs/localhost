@@ -1,9 +1,3 @@
-- name: Download Go v{{ go_version }}
-  shell: "curl -fs https://dl.google.com/go/go{{ go_version }}.{{ ansible_system | lower }}-amd64.tar.gz | tar zxf - -C /usr/local"
-  become: yes
-  tags:
-    - golang
-
 - name: Install pyenv
   git:
     repo: https://github.com/pyenv/pyenv.git

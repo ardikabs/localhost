@@ -13,6 +13,7 @@ brew_cask_packages:
   - discord
   - telegram
 brew_packages:
+  - curl
   - git
   - unzip
   - gnupg2
@@ -31,5 +32,6 @@ brew_packages:
   - docker
   - ripgrep
   - fd
+  - coreutils
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes

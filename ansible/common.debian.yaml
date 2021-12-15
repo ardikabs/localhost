@@ -7,16 +7,6 @@
   tags:
     - apt
 
-- name: Download personal dotfiles
-  git:
-    repo: "https://github.com/ardikabs/dotfiles.git"
-    dest: /tmp/dotfiles
-    version: master
-    update: yes
-    force: yes
-  tags:
-    - dotfiles
-
 - name: Purge old docker packages
   apt:
     name:
@@ -68,3 +58,35 @@
   become: yes
   tags:
     - docker
+
+- name: Download bat.deb
+  get_url:
+    url: https://github.com/sharkdp/bat/releases/download/v0.16.0/bat_0.16.0_amd64.deb
+    dest: /tmp/bat.deb
+  tags:
+    - apt
+    - bat
+
+- name: Install bat.deb
+  apt:
+    deb: /tmp/bat.deb
+  become: yes
+  tags:
+    - apt
+    - bat
+
+- name: Download keybase.deb
+  get_url:
+    url: https://prerelease.keybase.io/keybase_amd64.deb
+    dest: /tmp/keybase_amd64.deb
+  tags:
+    - apt
+    - keybase
+
+- name: Install keybase.deb
+  apt:
+    deb: /tmp/keybase_amd64.deb
+  become: yes
+  tags:
+    - apt
+    - keybase

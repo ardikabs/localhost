@@ -1,14 +1,4 @@
 
-- name: Install kubectl {{ kubectl_version }}
-  get_url:
-    url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/{{ ansible_system | lower }}/amd64/kubectl"
-    dest: /usr/local/bin/kubectl
-    mode: "777"
-  become: yes
-  tags:
-    - binary
-    - kubectl
-
 - name: Install kubectl krew
   shell: |-
     set -x; cd "$(mktemp -d)" &&

@@ -30,13 +30,7 @@
         - always
 
   tasks:
-    - include: ansible/common.linux.yaml
-      when: ansible_system == "Linux"
-      tags:
-        - common
-        - packages
-
-    - include: ansible/packages-debian.yaml
+    - include: ansible/common.debian.yaml
       when: ansible_system == "Linux" and ansible_os_family == "Debian"
       tags:
         - common
@@ -44,6 +38,11 @@
 
     - include: ansible/common.darwin.yaml
       when: ansible_system == "Darwin"
+      tags:
+        - common
+        - packages
+
+    - include: ansible/common.yaml
       tags:
         - common
         - packages
