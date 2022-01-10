@@ -9,7 +9,7 @@
     - kubectl-krew
     - kubectl-plugins
 
-- name: Install personal kubectl plugin
+- name: Install unofficials kubectl plugin
   get_url:
     url: "{{ item.url }}"
     dest: "{{ ansible_env.HOME }}/.krew/bin/{{ item.name }}"
