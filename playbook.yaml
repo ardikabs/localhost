@@ -1,7 +1,9 @@
 - name: Configure local workstation
   hosts: localhost
-  gather_facts: yes
-  become: no
+  gather_facts: true
+  become: false
+  vars:
+    include_deprecated: "false"
   pre_tasks:
     - name: Populate variables
       include_vars:
@@ -59,10 +61,6 @@
       tags:
         - kubectl
 
-    - include: ansible/cloud.yaml
-      tags:
-        - cloud
-
     - include: ansible/zsh.yaml
       tags:
         - zsh
@@ -70,6 +68,14 @@
     - include: ansible/toolkit.yaml
       tags:
         - toolkit
+
+
+    - include: "{{ item }}"
+      with_fileglob:
+        - ansible/deprecated/*.yaml
+      tags:
+        - deprecated
+      when: include_deprecated|bool
 
     - name: "Post installation"
       debug:

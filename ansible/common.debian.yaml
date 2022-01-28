@@ -7,6 +7,20 @@
   tags:
     - apt
 
+- name: Check python exist on the PATH
+  shell: "which python"
+  register: python_exist
+  ignore_errors: true
+  tags:
+    - pythonc
+
+- name: Link python3 to python
+  shell: ln -sf $(which python3) /usr/bin/python
+  become: yes
+  when: python_exist.rc != 0
+  tags:
+    - pythonc
+
 - name: Purge old docker packages
   apt:
     name:

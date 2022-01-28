@@ -1,0 +1,29 @@
+name: Main workflows
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test-playbook:
+    strategy:
+      fail-fast: false
+      matrix:
+        ansible-version: [stable-2.9]
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install python3-apt package for ubuntu
+        run: sudo apt update -y && sudo apt install python3-apt
+
+      - name: Install ansible (${{ matrix.ansible-version }})
+        run: pip install https://github.com/ansible/ansible/archive/${{ matrix.ansible-version }}.tar.gz --disable-pip-version-check
+
+      - name: Play the playbook
+        run: ansible-playbook playbook.yaml
