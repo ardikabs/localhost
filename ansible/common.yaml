@@ -24,8 +24,8 @@
   shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf plugin add {{ item.name }} {{ item.repo | default() }}"
   args:
     executable: /bin/zsh
-  become: yes
   loop: "{{ asdf_plugins }}"
+  ignore_errors: yes
   tags:
     - common
     - asdf
@@ -34,7 +34,6 @@
   shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf install {{ item.0.name }} {{ item.1 }}"
   args:
     executable: /bin/zsh
-  become: yes
   loop: "{{ asdf_plugins | subelements('versions') }}"
   tags:
     - common
@@ -44,7 +43,6 @@
   shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf global {{ item.name }} {{ item.global }}"
   args:
     executable: /bin/zsh
-  become: yes
   loop: "{{ asdf_plugins }}"
   tags:
     - common
