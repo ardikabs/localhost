@@ -125,7 +125,7 @@
 
 - name: Install docker-credential-ecr-login
   get_url:
-    url: "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.4.0/{{ ansible_system | lower }}-amd64/docker-credential-ecr-login"
+    url: "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.4.0/{{ ansible_system | lower }}-{{ ansible_architecture }}/docker-credential-ecr-login"
     dest: /usr/local/bin/docker-credential-ecr-login
     mode: "777"
   become: yes
