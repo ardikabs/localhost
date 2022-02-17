@@ -1,8 +1,17 @@
 
-- name: Ensuring Homebrew Is Installed
+- name: Ensuring Homebrew Is Installed (1)
   stat:
     path: /usr/local/bin/brew
   register: homebrew_check
+  tags:
+  - brew
+
+- name: Ensuring Homebrew Is Installed (2)
+  stat:
+    path: /opt/homebrew/bin/brew
+  register: homebrew_check
+  when:
+    - not homebrew_check.stat.exists
   tags:
   - brew
 
