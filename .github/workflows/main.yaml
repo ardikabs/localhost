@@ -1,12 +1,13 @@
 name: Main workflows
 
 on:
+  pull_request:
   push:
     branches:
       - master
 
 jobs:
-  test-playbook:
+  test:
     strategy:
       fail-fast: false
       matrix:
@@ -21,8 +22,15 @@ jobs:
       - name: Install python3-apt package for ubuntu
         run: sudo apt update -y && sudo apt install python3-apt
 
-      - name: Install ansible (${{ matrix.ansible-version }})
+      - name: Install ansible
         run: pip install -r requirements.txt --disable-pip-version-check
 
-      - name: Smoke test the playbook
+      - name: Linting the playbook
+        run: ansible-lint -v playbook.yaml
+
+      - name: Syntax check the playbook
+        run: ansible-playbook -v playbook.yaml --syntax-check
+
+      - name: Dry run the playbook
         run: ansible-playbook -v playbook.yaml
+        if: ${{ github.ref == 'refs/heads/master' }}
