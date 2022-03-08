@@ -2,7 +2,6 @@
 - name: Install kubectl krew
   shell: |-
     cd $HOME/.krew 2>/dev/null && exit 20
-    set -x
     set -o pipefail
     cd "$(mktemp -d)" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
@@ -13,6 +12,8 @@
     ./"${KREW}" install krew
   register: install_krew
   changed_when: install_krew.rc != 20
+  args:
+    executable: /bin/bash
   tags:
     - kubectl-krew
     - kubectl-plugins
