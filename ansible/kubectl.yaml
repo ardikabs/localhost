@@ -1,13 +1,18 @@
 
 - name: Install kubectl krew
   shell: |-
-    set -x; cd "$(mktemp -d)" &&
+    cd $HOME/.krew 2>/dev/null && exit 20
+    set -x
+    set -o pipefail
+    cd "$(mktemp -d)" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     KREW="krew-${OS}_${ARCH}" &&
     curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
     tar zxvf "${KREW}.tar.gz" &&
     ./"${KREW}" install krew
+  register: install_krew
+  changed_when: install_krew.rc != 20
   tags:
     - kubectl-krew
     - kubectl-plugins
@@ -25,5 +30,7 @@
 - name: Install kubectl plugins
   command: "{{ ansible_env.HOME }}/.krew/bin/kubectl-krew install {{ item }}"
   loop: "{{ kubectl_plugins }}"
+  register: install_kubectl_plugins
+  changed_when: "'installed' not in install_kubectl_plugins"
   tags:
     - kubectl-plugins

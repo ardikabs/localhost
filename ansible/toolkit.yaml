@@ -8,23 +8,26 @@
     - fzf
 
 - name: Install direnv
-  shell: "curl -sfL https://direnv.net/install.sh | bash"
+  shell: "curl -sfL https://direnv.net/install.sh | bash" # noqa risky-shell-pipe
   args:
     warn: false
+  changed_when: true
   become: yes
   tags:
     - direnv
 
 - name: Install fuzzy finder (fzf)
-  shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish"
+  shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish" # noqa command-instead-of-shell
   args:
     executable: /bin/zsh
+  changed_when: true
   tags:
     - fzf
 
 - name: Configure tmux configuration
   command: cp -fr /tmp/dotfiles/tmux/.tmux.conf {{ ansible_env.HOME }}
-  ignore_errors: yes
+  failed_when: false
+  changed_when: true
   tags:
     - tmux
     - dotfiles
@@ -41,25 +44,32 @@
 
 - name: Configure vim configuration
   command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
-  ignore_errors: yes
+  failed_when: false
+  changed_when: true
   tags:
     - vim
     - dotfiles
 
 - name: Configure gpg-agent configuration
   command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ gnupg_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - gpg
     - dotfiles
 
 - name: Configure gpg sshcontrol configuration
   command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ gnupg_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - gpg
     - dotfiles
 
 - name: Configure user ssh configuration
   command: cp -fr /tmp/dotfiles/ssh/config {{ ssh_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - ssh
     - dotfiles
@@ -67,19 +77,25 @@
 - name: Configure system ssh configuration
   command: cp -fr /tmp/dotfiles/ssh/ssh_config /etc/ssh/ssh_config
   become: yes
+  failed_when: false
+  changed_when: true
   tags:
     - ssh
     - dotfiles
 
 - name: Configure global gitconfig
-  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME}}
+  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - gitconfig
     - dotfiles
 
 - name: Configure global gitignore
-  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME}}
+  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - gitignore
@@ -87,6 +103,8 @@
 
 - name: Configure additional gitconfigs
   command: cp -fr /tmp/dotfiles/git/.gitconfigs {{ gitconfig_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - gitconfigs
@@ -94,6 +112,8 @@
 
 - name: Configure git templates
   command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - gittemplates
@@ -101,6 +121,8 @@
 
 - name: Configure git users
   command: cp -fr /tmp/dotfiles/git/.gitusers {{ gitconfig_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - gitusers
@@ -108,6 +130,8 @@
 
 - name: Configure git-custom-command
   command: cp -fr /tmp/dotfiles/git/cmd/ {{ gitconfig_dir }}
+  failed_when: false
+  changed_when: true
   tags:
     - git
     - git-custom-command
