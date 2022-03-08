@@ -1,6 +1,7 @@
 - name: Configure zsh
-  shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
-  ignore_errors: yes
+  shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh # noqa risky-shell-pipe
+  failed_when: false
+  changed_when: true
   args:
     warn: false
   tags:
@@ -36,12 +37,16 @@
 
 - name: Copy zshrc.d to local directory
   command: "cp -fr /tmp/dotfiles/zsh/zshrc.d {{ ansible_env.HOME }}/.local/"
+  failed_when: false
+  changed_when: true
   tags:
     - zsh-rc
     - dotfiles
 
 - name: Override local .zshrc
   command: "cp -fr /tmp/dotfiles/zsh/.zshrc {{ ansible_env.HOME }}"
+  failed_when: false
+  changed_when: true
   tags:
     - zsh-rc
     - dotfiles

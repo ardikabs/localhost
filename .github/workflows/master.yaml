@@ -1,7 +1,6 @@
 name: Main workflows
 
 on:
-  pull_request:
   push:
     branches:
       - master
@@ -23,7 +22,7 @@ jobs:
         run: sudo apt update -y && sudo apt install python3-apt
 
       - name: Install ansible (${{ matrix.ansible-version }})
-        run: pip install https://github.com/ansible/ansible/archive/${{ matrix.ansible-version }}.tar.gz --disable-pip-version-check
+        run: pip install -r requirements.txt --disable-pip-version-check
 
-      - name: Play the playbook
-        run: ansible-playbook playbook.yaml
+      - name: Smoke test the playbook
+        run: ansible-playbook -v playbook.yaml

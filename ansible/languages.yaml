@@ -19,8 +19,8 @@
     - python
 
 - name: Install poetry
-  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | if [ -x /usr/bin/python3 ]; then python3 -; else python -; fi
+  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | if [ -x /usr/bin/python3 ]; then python3 -; else python -; fi # noqa command-instead-of-module risky-shell-pipe
   become: yes
-  ignore_errors: yes
+  changed_when: True
   tags:
     - python

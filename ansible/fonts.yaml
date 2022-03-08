@@ -37,5 +37,5 @@
 
 - name: Configure font cache
   command: fc-cache -vf {{ fonts_dir }}
-  ignore_errors: yes
+  failed_when: yes
   when: ansible_system == "Linux"

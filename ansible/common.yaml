@@ -25,7 +25,9 @@
   args:
     executable: /bin/zsh
   loop: "{{ asdf_plugins }}"
-  ignore_errors: yes
+  failed_when: dl_asdf_plugin.rc == 1
+  changed_when: dl_asdf_plugin.stderr == ""
+  register: dl_asdf_plugin
   tags:
     - common
     - asdf
@@ -35,6 +37,8 @@
   args:
     executable: /bin/zsh
   loop: "{{ asdf_plugins | subelements('versions') }}"
+  changed_when: "'installed' not in install_asdf_plugin.stdout"
+  register: install_asdf_plugin
   tags:
     - common
     - asdf
@@ -43,6 +47,7 @@
   shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf global {{ item.name }} {{ item.global }}"
   args:
     executable: /bin/zsh
+  changed_when: True
   loop: "{{ asdf_plugins }}"
   tags:
     - common
