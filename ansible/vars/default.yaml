@@ -54,18 +54,6 @@ asdf_plugins:
     repo: ""
     versions: ["4.4.1"]
     global: "4.4.1"
-  - name: consul
-    repo: ""
-    versions: ["1.10.3"]
-    global: "1.10.3"
-  - name: packer
-    repo: ""
-    versions: ["1.7.8"]
-    global: "1.7.8"
-  - name: terraform
-    repo: ""
-    versions: ["0.15.5", "1.1.0"]
-    global: "0.15.5"
   - name: gcloud
     repo: ""
     versions: ["367.0.0"]
@@ -82,6 +70,26 @@ asdf_plugins:
     repo: https://github.com/virtualstaticvoid/asdf-istioctl
     versions: ["1.10.6"]
     global: "1.10.6"
+  - name: terraform
+    repo: https://github.com/asdf-community/asdf-hashicorp
+    versions: ["0.15.5", "1.1.0", "1.2.0"]
+    global: "0.15.5"
+  - name: packer
+    repo: https://github.com/asdf-community/asdf-hashicorp
+    versions: ["1.7.8"]
+    global: "1.7.8"
+  - name: consul
+    repo: https://github.com/asdf-community/asdf-hashicorp
+    versions: ["1.12.0"]
+    global: "1.12.0"
+  - name: vault
+    repo: https://github.com/asdf-community/asdf-hashicorp
+    versions: ["1.10.3"]
+    global: "1.10.3"
+  - name: boundary
+    repo: https://github.com/asdf-community/asdf-hashicorp
+    versions: ["0.8.1"]
+    global: "0.8.1"
 
 kubectl_plugins:
   - ctx
