@@ -103,3 +103,5 @@ kubectl_plugins_unofficial:
     url: https://raw.githubusercontent.com/ardikabs/kubectl-version_manager/master/kubectl-version_manager
   - name: kubectl-ssh_jump
     url: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump
+  - name: kubectl-node_shell
+    url: https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
