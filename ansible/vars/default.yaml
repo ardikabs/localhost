@@ -64,8 +64,8 @@ asdf_plugins:
     global: "2.2.22"
   - name: golang
     repo: ""
-    versions: ["1.16.12", "1.17.5"]
-    global: "1.16.12"
+    versions: ["1.17.5", "1.18.6"]
+    global: "1.18.6"
   - name: istioctl
     repo: https://github.com/virtualstaticvoid/asdf-istioctl
     versions: ["1.10.6"]
@@ -90,6 +90,10 @@ asdf_plugins:
     repo: https://github.com/asdf-community/asdf-hashicorp
     versions: ["0.8.1"]
     global: "0.8.1"
+  - name: teleport-ent
+    repo: ""
+    versions: ["9.3.6"]
+    global: "9.3.6"
 
 kubectl_plugins:
   - ctx
