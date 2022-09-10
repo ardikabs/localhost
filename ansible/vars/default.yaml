@@ -94,6 +94,10 @@ asdf_plugins:
     repo: ""
     versions: ["9.3.6"]
     global: "9.3.6"
+  - name: k3d
+    repo: https://github.com/spencergilbert/asdf-k3d.git
+    versions: ["latest"]
+    global: "latest"
 
 kubectl_plugins:
   - ctx
