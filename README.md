@@ -1,5 +1,9 @@
-# ansible-local-workstation
-My personal local workstation provisioner using Ansible both for GNU/Linux and Mac OSX.
+# localhost
+My personal local workstation provisioner with Ansible.
+
+## Supports
+1. GNU/Linux Ubuntu
+2. Mac OSX
 
 ## Prerequisites
 * Ansible v2.9
