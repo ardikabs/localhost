@@ -1,9 +1,8 @@
-
 - name: Download personal dotfiles
   git:
     repo: "https://github.com/ardikabs/dotfiles.git"
     dest: /tmp/dotfiles
-    version: master
+    version: main
     update: yes
     force: yes
   tags:
