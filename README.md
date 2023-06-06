@@ -1,15 +1,20 @@
 # localhost
+
 My personal local workstation provisioner with Ansible.
 
 ## Supports
+
 1. GNU/Linux Ubuntu
 2. Mac OSX
 
 ## Prerequisites
+
 * Ansible v2.9
 
 ## List installed tools
+
 ### Linux
+
 * zsh
 * git
 * tmux
@@ -17,13 +22,15 @@ My personal local workstation provisioner with Ansible.
 * gpg2
 * pyenv
 * poetry
-* fzf
 * sops
 * bat
 * Go
+* [atuin](https://github.com/ellie/atuin)
 
 ### MacOSX
+
 #### brew
+
 * git
 * unzip
 * gnupg2
@@ -39,10 +46,11 @@ My personal local workstation provisioner with Ansible.
 * pem2openpgp
 * pyenv
 * poetry
-* fzf
 * sops
+* [atuin](https://github.com/ellie/atuin)
 
 #### brew cask
+
 * firefox
 * google-chrome
 * google-drive
@@ -57,5 +65,6 @@ My personal local workstation provisioner with Ansible.
 * telegram
 
 ## References
+
 * [Stupid Unix Tricks](https://sneak.berlin/20191011/stupid-unix-tricks/)
 * [Hypermodern Python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)

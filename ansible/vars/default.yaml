@@ -4,11 +4,17 @@ post_install: |
         chsh -s $(which zsh)
 
   You also need to run keybase with running the following commands:
+
         run_keybase
 
   Then after that you need to import your current pgp key from keybase,
   with running the following commands:
+
         keybase pgp export -s | gpg --import
+
+  As the starter for populating the existing shell history please run the following commands:
+
+        atuin import auto
 
 # ------ Binary version ------
 sops_version: "v3.6.1"
@@ -17,8 +23,8 @@ sops_version: "v3.6.1"
 fonts_dir: "{% if ansible_system == 'Linux' %}{{ ansible_env.HOME }}/.local/share/fonts{% elif ansible_system == 'Darwin' %}{{ ansible_env.HOME }}/Library/Fonts{% endif %}"
 localbin_dir: "{{ ansible_env.HOME }}/.local/bin"
 gitconfig_dir: "{{ ansible_env.HOME }}/.local/git"
-gnupg_dir : "{{ ansible_env.HOME }}/.gnupg"
-ssh_dir : "{{ ansible_env.HOME }}/.ssh"
+gnupg_dir: "{{ ansible_env.HOME }}/.gnupg"
+ssh_dir: "{{ ansible_env.HOME }}/.ssh"
 
 # ------ Fonts ------
 powerline_fonts: no
