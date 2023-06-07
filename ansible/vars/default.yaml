@@ -111,6 +111,7 @@ kubectl_plugins:
   - ingress-nginx
   - cert-manager
   - istiolog
+  - mtail
 
 kubectl_plugins_unofficial:
   - name: kubectl-version_manager
