@@ -4,7 +4,6 @@
     dest: "{{ ansible_env.HOME }}/.fzf"
     version: master
     depth: "1"
-  when: false # skip fuzzy, as we move to atuin
   tags:
     - fzf
 
