@@ -10,10 +10,10 @@
         dir: ansible/vars
         ignore_unknown_extensions: True
         extensions:
-        - ''
-        - 'yaml'
-        - 'yml'
-        - 'json'
+          - ""
+          - "yaml"
+          - "yml"
+          - "json"
       tags:
         - always
 
@@ -23,11 +23,12 @@
         state: "directory"
         recurse: yes
       loop:
-      - "{{ localbin_dir }}"
-      - "{{ gitconfig_dir }}"
-      - "{{ fonts_dir }}"
-      - "{{ gnupg_dir }}"
-      - "{{ ssh_dir }}"
+        - "{{ localbin_dir }}"
+        - "{{ gitconfig_dir }}"
+        - "{{ gitconfig_dir }}/cmd"
+        - "{{ fonts_dir }}"
+        - "{{ gnupg_dir }}"
+        - "{{ ssh_dir }}"
       tags:
         - always
 
@@ -68,7 +69,6 @@
     - include: ansible/toolkit.yaml
       tags:
         - toolkit
-
 
     - include: "{{ item }}"
       with_fileglob:
