@@ -39,47 +39,47 @@ asdf_plugins:
   - name: kubectl
     repo: ""
     versions: ["1.20.13"]
-    global: "1.20.13"
+    global: "1.27.1"
   - name: kubetail
     repo: "https://github.com/janpieper/asdf-kubetail.git"
     versions: ["1.6.13"]
     global: "1.6.13"
   - name: helm
     repo: ""
-    versions: ["3.2.0"]
-    global: "3.2.0"
+    versions: ["3.8.2", "3.12.1"]
+    global: "3.8.2"
   - name: helm-diff
     repo: ""
-    versions: ["3.1.3"]
-    global: "3.1.3"
+    versions: ["3.8.1"]
+    global: "3.8.1"
   - name: helmfile
     repo: ""
-    versions: ["0.142.0"]
-    global: "0.142.0"
+    versions: ["0.155.0"]
+    global: "0.155.0"
   - name: kustomize
     repo: ""
     versions: ["4.4.1"]
     global: "4.4.1"
   - name: gcloud
     repo: ""
-    versions: ["367.0.0"]
-    global: "367.0.0"
+    versions: ["403.0.0"]
+    global: "403.0.0"
   - name: awscli
     repo: ""
     versions: ["2.2.22"]
     global: "2.2.22"
   - name: golang
     repo: ""
-    versions: ["1.17.5", "1.18.6"]
-    global: "1.18.6"
+    versions: ["1.20.5"]
+    global: "1.20.5"
   - name: istioctl
     repo: https://github.com/virtualstaticvoid/asdf-istioctl
     versions: ["1.10.6"]
     global: "1.10.6"
   - name: terraform
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["0.15.5", "1.1.0", "1.2.0"]
-    global: "0.15.5"
+    versions: ["1.1.0", "1.2.0", "1.5.2"]
+    global: "1.2.0"
   - name: packer
     repo: https://github.com/asdf-community/asdf-hashicorp
     versions: ["1.7.8"]
@@ -104,6 +104,14 @@ asdf_plugins:
     repo: https://github.com/spencergilbert/asdf-k3d.git
     versions: ["latest"]
     global: "latest"
+  - name: cilium-cli
+    repo: https://github.com/carnei-ro/asdf-cilium-cli.git
+    versions: ["0.14.7"]
+    global: "0.14.7"
+  - name: cilium-hubble
+    repo: https://github.com/NitriKx/asdf-cilium-hubble.git
+    versions: ["0.11.6"]
+    global: "0.11.6"
 
 kubectl_plugins:
   - ctx
@@ -112,6 +120,9 @@ kubectl_plugins:
   - cert-manager
   - istiolog
   - mtail
+  - outdated
+  - preflight
+  - support-bundle
 
 kubectl_plugins_unofficial:
   - name: kubectl-version_manager
