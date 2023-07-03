@@ -38,7 +38,7 @@ asdf_plugins:
     global: "2.28.0"
   - name: kubectl
     repo: ""
-    versions: ["1.20.13"]
+    versions: ["1.23.17", "1.27.1"]
     global: "1.27.1"
   - name: kubetail
     repo: "https://github.com/janpieper/asdf-kubetail.git"
@@ -116,7 +116,6 @@ asdf_plugins:
 kubectl_plugins:
   - ctx
   - ns
-  - ingress-nginx
   - cert-manager
   - istiolog
   - mtail
@@ -131,3 +130,5 @@ kubectl_plugins_unofficial:
     url: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump
   - name: kubectl-node_shell
     url: https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
+  - name: kubectl-ingress-nginx
+    url: https://github.com/kubernetes/ingress-nginx/releases/download//kubectl-ingress-nginx_darwin_arm64.tar.gz

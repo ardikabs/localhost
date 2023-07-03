@@ -17,6 +17,17 @@
       tags:
         - always
 
+    - name: "Ensure system-wide directory exist"
+      file:
+        path: "{{ item }}"
+        state: "directory"
+        recurse: yes
+      become: yes
+      loop:
+        - "/usr/local/bin"
+      tags:
+        - always
+
     - name: "Ensure directory exist"
       file:
         path: "{{ item }}"

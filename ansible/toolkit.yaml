@@ -7,19 +7,8 @@
   tags:
     - fzf
 
-- name: Install atuin
-  shell: "curl -sfL curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh | bash" # noqa risky-shell-pipe
-  args:
-    warn: false
-  changed_when: true
-  become: yes
-  tags:
-    - atuin
-
 - name: Install direnv
   shell: "curl -sfL https://direnv.net/install.sh | bash" # noqa risky-shell-pipe
-  args:
-    warn: false
   changed_when: true
   become: yes
   tags:

@@ -3,7 +3,6 @@ brew_cask_packages:
   - firefox
   - google-chrome
   - google-drive
-  - google-hangouts
   - iterm2
   - slack
   - spotify
@@ -31,5 +30,6 @@ brew_packages:
   - ripgrep
   - fd
   - coreutils
+  - atuin
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes
