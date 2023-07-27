@@ -31,5 +31,7 @@ brew_packages:
   - fd
   - coreutils
   - atuin
+  - colima
+  - snyk/tap/snyk
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes
