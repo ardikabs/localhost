@@ -13,7 +13,7 @@
   failed_when: false
   changed_when: false
   tags:
-    - pythonc
+    - python
 
 - name: Link python3 to python
   file:
@@ -23,17 +23,17 @@
   become: yes
   when: python_exist.rc != 0
   tags:
-    - pythonc
+    - python
 
 - name: Purge old docker packages
   apt:
     name:
-    - docker
-    - docker.io
-    - docker-engine
-    - runc
-    - containerd
-    - lxc-docker
+      - docker
+      - docker.io
+      - docker-engine
+      - runc
+      - containerd
+      - lxc-docker
     state: absent
     purge: yes
   become: yes

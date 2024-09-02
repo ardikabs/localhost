@@ -11,6 +11,7 @@ brew_cask_packages:
   - keybase
   - discord
   - telegram
+
 brew_packages:
   - curl
   - git
@@ -33,5 +34,6 @@ brew_packages:
   - atuin
   - colima
   - snyk/tap/snyk
+
 install_homebrew_if_missing: yes
 upgrade_homebrew_packages: yes

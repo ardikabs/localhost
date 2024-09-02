@@ -96,10 +96,6 @@ asdf_plugins:
     repo: https://github.com/asdf-community/asdf-hashicorp
     versions: ["0.8.1"]
     global: "0.8.1"
-  - name: teleport-ent
-    repo: ""
-    versions: ["9.3.6"]
-    global: "9.3.6"
   - name: k3d
     repo: https://github.com/spencergilbert/asdf-k3d.git
     versions: ["latest"]
