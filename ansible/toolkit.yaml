@@ -1,5 +1,5 @@
 - name: Download fuzzy finder (fzf)
-  git:
+  ansible.builtin.git:
     repo: https://github.com/junegunn/fzf.git
     dest: "{{ ansible_env.HOME }}/.fzf"
     version: master
@@ -8,14 +8,14 @@
     - fzf
 
 - name: Install direnv
-  shell: "curl -sfL https://direnv.net/install.sh | bash" # noqa risky-shell-pipe
+  ansible.builtin.shell: "curl -sfL https://direnv.net/install.sh | bash" # noqa risky-shell-pipe
   changed_when: true
-  become: yes
+  become: true
   tags:
     - direnv
 
 - name: Install fuzzy finder (fzf)
-  shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish" # noqa command-instead-of-shell
+  ansible.builtin.shell: "{{ ansible_env.HOME }}/.fzf/install --all --no-fish" # noqa command-instead-of-shell
   args:
     executable: /bin/zsh
   changed_when: true
@@ -23,7 +23,7 @@
     - fzf
 
 - name: Configure tmux configuration
-  command: cp -fr /tmp/dotfiles/tmux/.tmux.conf {{ ansible_env.HOME }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/tmux/.tmux.conf {{ ansible_env.HOME }}
   failed_when: false
   changed_when: true
   tags:
@@ -31,7 +31,7 @@
     - dotfiles
 
 - name: Download tmux plugin manager
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/tmux-plugins/tpm.git"
     version: master
     dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
@@ -41,7 +41,7 @@
     - dotfiles
 
 - name: Configure vim configuration
-  command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/vim/.vimrc {{ ansible_env.HOME }}
   failed_when: false
   changed_when: true
   tags:
@@ -49,7 +49,7 @@
     - dotfiles
 
 - name: Configure gpg-agent configuration
-  command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ gnupg_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/gpg/gpg-agent.conf {{ gnupg_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -57,7 +57,7 @@
     - dotfiles
 
 - name: Configure gpg sshcontrol configuration
-  command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ gnupg_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/gpg/sshcontrol {{ gnupg_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -65,7 +65,7 @@
     - dotfiles
 
 - name: Configure user ssh configuration
-  command: cp -fr /tmp/dotfiles/ssh/config {{ ssh_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/ssh/config {{ ssh_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -73,8 +73,8 @@
     - dotfiles
 
 - name: Configure system ssh configuration
-  command: cp -fr /tmp/dotfiles/ssh/ssh_config /etc/ssh/ssh_config
-  become: yes
+  ansible.builtin.command: cp -fr /tmp/dotfiles/ssh/ssh_config /etc/ssh/ssh_config
+  become: true
   failed_when: false
   changed_when: true
   tags:
@@ -82,7 +82,7 @@
     - dotfiles
 
 - name: Configure global gitconfig
-  command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/.gitconfig {{ ansible_env.HOME }}
   failed_when: false
   changed_when: true
   tags:
@@ -91,7 +91,7 @@
     - dotfiles
 
 - name: Configure global gitignore
-  command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/.gitignore {{ ansible_env.HOME }}
   failed_when: false
   changed_when: true
   tags:
@@ -100,7 +100,7 @@
     - dotfiles
 
 - name: Configure additional gitconfigs
-  command: cp -fr /tmp/dotfiles/git/.gitconfigs {{ gitconfig_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/.gitconfigs {{ gitconfig_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -109,7 +109,7 @@
     - dotfiles
 
 - name: Configure git templates
-  command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/.gittemplates {{ gitconfig_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -118,7 +118,7 @@
     - dotfiles
 
 - name: Configure git users
-  command: cp -fr /tmp/dotfiles/git/.gitusers {{ gitconfig_dir }}
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/.gitusers {{ gitconfig_dir }}
   failed_when: false
   changed_when: true
   tags:
@@ -127,7 +127,7 @@
     - dotfiles
 
 - name: Configure git-custom-command
-  command: cp -fr /tmp/dotfiles/git/cmd/ {{ gitconfig_dir }}/cmd
+  ansible.builtin.command: cp -fr /tmp/dotfiles/git/cmd/ {{ gitconfig_dir }}/cmd
   failed_when: false
   changed_when: true
   tags:
@@ -136,11 +136,11 @@
     - dotfiles
 
 - name: Install mozilla sops {{ sops_version }}
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/mozilla/sops/releases/download/{{ sops_version }}/sops-{{ sops_version }}.{{ ansible_system | lower }}"
     dest: /usr/local/bin/sops
     mode: "777"
-  become: yes
+  become: true
   when:
     - ansible_architecture != "arm64"
   tags:
@@ -148,11 +148,16 @@
     - sops
 
 - name: Install docker-credential-ecr-login
-  get_url:
-    url: "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/{{ ansible_system | lower }}-{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}/docker-credential-ecr-login"
+  ansible.builtin.get_url:
+    url: "https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/{{ ecr_helper_download_path }}"
     dest: /usr/local/bin/docker-credential-ecr-login
-    mode: "777"
-  become: yes
+    mode: "0755"
+  become: true
+  vars:
+    ecr_helper_version: 0.9.0
+    ecr_helper_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+    ecr_helper_system: "{{ ansible_system | lower }}"
+    ecr_helper_download_path: "{{ ecr_helper_version }}/{{ ecr_helper_system }}-{{ ecr_helper_arch }}/docker-credential-ecr-login"
   tags:
     - binary
     - docker

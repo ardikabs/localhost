@@ -1,6 +1,6 @@
 - name: Download powerline-fonts repository from github
-  git:
-    repo: 'https://github.com/powerline/fonts.git'
+  ansible.builtin.git:
+    repo: "https://github.com/powerline/fonts.git"
     version: master
     dest: /tmp/powerline-fonts
     depth: "1"
@@ -9,21 +9,21 @@
     - powerline-fonts
 
 - name: Copying powerline-fonts
-  command: cp -r /tmp/powerline-fonts/{{ item }} {{ fonts_dir }}
+  ansible.builtin.command: cp -r /tmp/powerline-fonts/{{ item }} {{ fonts_dir }}
   loop:
-  - "DroidSansMono"
-  - "Meslo Dotted"
-  - "Meslo Slashed"
-  - "Roboto Mono"
+    - "DroidSansMono"
+    - "Meslo Dotted"
+    - "Meslo Slashed"
+    - "Roboto Mono"
   when: powerline_fonts
   tags:
-  - powerline-fonts
+    - powerline-fonts
 
 - name: Download nerd-fonts
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/{{ item }}.zip
     dest: "{{ fonts_dir }}"
-    remote_src: yes
+    remote_src: true
   when: nerd_fonts
   loop:
     - "DroidSansMono"
@@ -32,10 +32,9 @@
     - "Ubuntu"
     - "UbuntuMono"
   tags:
-  - nerd-fonts
-
+    - nerd-fonts
 
 - name: Configure font cache
-  command: fc-cache -vf {{ fonts_dir }}
+  ansible.builtin.command: fc-cache -vf {{ fonts_dir }}
   failed_when: false
   when: ansible_system == "Linux"

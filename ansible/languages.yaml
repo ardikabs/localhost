@@ -1,26 +1,26 @@
 - name: Install pyenv
-  git:
+  ansible.builtin.git:
     repo: https://github.com/pyenv/pyenv.git
     dest: "{{ ansible_env.HOME }}/.pyenv"
     version: master
-    update: yes
+    update: true
     depth: "1"
   tags:
     - python
 
 - name: Install pyenv-virtualenv
-  git:
+  ansible.builtin.git:
     repo: https://github.com/yyuu/pyenv-virtualenv.git
     dest: "{{ ansible_env.HOME }}/.pyenv/plugins/pyenv-virtualenv"
     version: master
-    update: yes
+    update: true
     depth: "1"
   tags:
     - python
 
 - name: Install poetry
-  shell: curl -sSL https://install.python-poetry.org | python3 - # noqa command-instead-of-module risky-shell-pipe
-  become: yes
-  changed_when: True
+  ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 - # noqa command-instead-of-module risky-shell-pipe
+  become: true
+  changed_when: true
   tags:
     - python

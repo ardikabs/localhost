@@ -1,14 +1,14 @@
 - name: Install required packages
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ apt_packages }}"
     state: present
-    update_cache: yes
-  become: yes
+    update_cache: true
+  become: true
   tags:
     - apt
 
 - name: Check python exist on the PATH
-  shell: "which python" # noqa command-instead-of-shell
+  ansible.builtin.shell: "which python" # noqa command-instead-of-shell
   register: python_exist
   failed_when: false
   changed_when: false
@@ -16,17 +16,17 @@
     - python
 
 - name: Link python3 to python
-  file:
+  ansible.builtin.file:
     src: "{{ lookup('pipe', 'which python3') }}"
     dest: /usr/bin/python
     state: link
-  become: yes
+  become: true
   when: python_exist.rc != 0
   tags:
     - python
 
 - name: Purge old docker packages
-  apt:
+  ansible.builtin.apt:
     name:
       - docker
       - docker.io
@@ -35,50 +35,50 @@
       - containerd
       - lxc-docker
     state: absent
-    purge: yes
-  become: yes
+    purge: true
+  become: true
   tags:
     - docker
 
 - name: Add Docker PGP Key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
     state: present
-  become: yes
+  become: true
   tags:
     - docker
 
 - name: Add Docker APT Repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
     state: present
-  become: yes
+  become: true
   tags:
     - docker
 
 - name: Installing Docker latest
-  apt:
+  ansible.builtin.apt:
     name:
       - docker-ce
       - docker-ce-cli
       - containerd.io
     state: present
-    update_cache: yes
-  become: yes
+    update_cache: true
+  become: true
   tags:
     - docker
 
-- name: Adding user {{ ansible_env.USER }} to docker group
-  user:
+- name: "Adding user {{ ansible_env.USER }} to docker group"
+  ansible.builtin.user:
     name: "{{ ansible_env.USER }}"
     groups: docker
-    append: yes
-  become: yes
+    append: true
+  become: true
   tags:
     - docker
 
 - name: Download bat.deb
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/sharkdp/bat/releases/download/v0.16.0/bat_0.16.0_amd64.deb
     dest: /tmp/bat.deb
   tags:
@@ -86,15 +86,15 @@
     - bat
 
 - name: Install bat.deb
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/bat.deb
-  become: yes
+  become: true
   tags:
     - apt
     - bat
 
 - name: Download keybase.deb
-  get_url:
+  ansible.builtin.get_url:
     url: https://prerelease.keybase.io/keybase_amd64.deb
     dest: /tmp/keybase_amd64.deb
   tags:
@@ -102,9 +102,9 @@
     - keybase
 
 - name: Install keybase.deb
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/keybase_amd64.deb
-  become: yes
+  become: true
   tags:
     - apt
     - keybase

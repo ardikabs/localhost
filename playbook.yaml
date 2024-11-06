@@ -1,3 +1,4 @@
+---
 - name: Configure local workstation
   hosts: localhost
   gather_facts: true
@@ -6,9 +7,9 @@
     include_deprecated: "false"
   pre_tasks:
     - name: Populate variables
-      include_vars:
+      ansible.builtin.include_vars:
         dir: ansible/vars
-        ignore_unknown_extensions: True
+        ignore_unknown_extensions: true
         extensions:
           - ""
           - "yaml"
@@ -18,21 +19,21 @@
         - always
 
     - name: "Ensure system-wide directory exist"
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         state: "directory"
-        recurse: yes
-      become: yes
+        recurse: true
+      become: true
       loop:
         - "/usr/local/bin"
       tags:
         - always
 
     - name: "Ensure directory exist"
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         state: "directory"
-        recurse: yes
+        recurse: true
       loop:
         - "{{ localbin_dir }}"
         - "{{ gitconfig_dir }}"
@@ -44,52 +45,61 @@
         - always
 
   tasks:
-    - include: ansible/common.debian.yaml
+    - name: Common Installation for Debian (Ubuntu)
+      ansible.builtin.include_tasks: ansible/common.debian.yaml
       when: ansible_system == "Linux" and ansible_os_family == "Debian"
       tags:
         - common
         - packages
 
-    - include: ansible/common.darwin.yaml
+    - name: Common Installation for Darwin (OSX)
+      ansible.builtin.include_tasks: ansible/common.darwin.yaml
       when: ansible_system == "Darwin"
       tags:
         - common
         - packages
 
-    - include: ansible/common.yaml
+    - name: Common Installation
+      ansible.builtin.include_tasks: ansible/common.yaml
       tags:
         - common
         - packages
 
-    - include: ansible/fonts.yaml
+    - name: Configure Fonts
+      ansible.builtin.include_tasks: ansible/fonts.yaml
       tags:
         - fonts
 
-    - include: ansible/languages.yaml
+    - name: Configure Programming Language
+      ansible.builtin.include_tasks: ansible/languages.yaml
       tags:
         - proglang
 
-    - include: ansible/kubectl.yaml
+    - name: Configure Kubectl
+      ansible.builtin.include_tasks: ansible/kubectl.yaml
       tags:
         - kubectl
 
-    - include: ansible/zsh.yaml
+    - name: Configure ZSH Shell
+      ansible.builtin.include_tasks: ansible/zsh.yaml
       tags:
         - zsh
 
-    - include: ansible/toolkit.yaml
+    - name: Configure Toolkit
+      ansible.builtin.include_tasks: ansible/toolkit.yaml
       tags:
         - toolkit
 
-    - include: "{{ item }}"
+    - name: "[Deprecated] Configure Additional Toolkit"
+      ansible.builtin.include_tasks: "{{ item }}"
       with_fileglob:
         - ansible/deprecated/*.yaml
       tags:
         - deprecated
-      when: include_deprecated|bool
+      when: include_deprecated | bool
 
     - name: "Post installation"
-      debug:
+      ansible.builtin.debug:
         msg: "{{ post_install.split('\n') }}"
       tags:
         - common

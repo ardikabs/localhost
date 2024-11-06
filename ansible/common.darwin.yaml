@@ -1,12 +1,12 @@
 - name: Ensuring Homebrew Is Installed (1)
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/brew
   register: homebrew_check
   tags:
     - brew
 
 - name: Ensuring Homebrew Is Installed (2)
-  stat:
+  ansible.builtin.stat:
     path: /opt/homebrew/bin/brew
   register: homebrew_check
   when:
@@ -15,7 +15,7 @@
     - brew
 
 - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
-  fail:
+  ansible.builtin.fail:
     msg: Homebrew is missing...Install from http://brew.sh/
   when:
     - not homebrew_check.stat.exists
@@ -24,7 +24,7 @@
     - brew
 
 - name: Installing Homebrew
-  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ansible.builtin.shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   when:
     - not homebrew_check.stat.exists
     - install_homebrew_if_missing
@@ -32,14 +32,14 @@
     - brew
 
 - name: Updating Homebrew
-  homebrew:
+  ansible.builtin.homebrew:
     update_homebrew: true
   when: homebrew_check.stat.exists
   tags:
     - brew
 
 - name: Upgrading Homebrew Packages
-  homebrew:
+  ansible.builtin.homebrew:
     upgrade_all: "{{ upgrade_homebrew_packages }}"
   register: result
   until: result is successful
@@ -48,7 +48,7 @@
     - brew
 
 - name: Installing Homebrew Cask Packages
-  homebrew_cask:
+  ansible.builtin.homebrew_cask:
     name: "{{ brew_cask_packages }}"
     state: present
   register: result
@@ -59,7 +59,7 @@
     - brew-cask
 
 - name: Installing Homebrew Packages
-  homebrew:
+  ansible.builtin.homebrew:
     name: "{{ brew_packages }}"
     state: present
   register: result

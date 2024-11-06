@@ -1,6 +1,5 @@
-
 - name: Install kubectl krew
-  shell: |-
+  ansible.builtin.shell: |-
     cd $HOME/.krew 2>/dev/null && exit 20
     set -o pipefail
     cd "$(mktemp -d)" &&
@@ -19,17 +18,17 @@
     - kubectl-plugins
 
 - name: Install unofficials kubectl plugin
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ ansible_env.HOME }}/.krew/bin/{{ item.name }}"
     mode: "777"
-  become: yes
+  become: true
   loop: "{{ kubectl_plugins_unofficial }}"
   tags:
     - kubectl-plugins
 
 - name: Install kubectl plugins
-  command: "{{ ansible_env.HOME }}/.krew/bin/kubectl-krew install {{ item }}"
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.krew/bin/kubectl-krew install {{ item }}"
   loop: "{{ kubectl_plugins }}"
   register: install_kubectl_plugins
   changed_when: "'installed' not in install_kubectl_plugins"
