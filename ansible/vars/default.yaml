@@ -32,34 +32,6 @@ nerd_fonts: yes
 
 # ------ plugins ------
 asdf_plugins:
-  - name: direnv
-    repo: ""
-    versions: ["2.28.0"]
-    global: "2.28.0"
-  - name: kubectl
-    repo: ""
-    versions: ["1.23.17", "1.27.1"]
-    global: "1.27.1"
-  - name: kubetail
-    repo: "https://github.com/janpieper/asdf-kubetail.git"
-    versions: ["1.6.13"]
-    global: "1.6.13"
-  - name: helm
-    repo: ""
-    versions: ["3.8.2", "3.12.1"]
-    global: "3.8.2"
-  - name: helm-diff
-    repo: ""
-    versions: ["3.8.1"]
-    global: "3.8.1"
-  - name: helmfile
-    repo: ""
-    versions: ["0.155.0"]
-    global: "0.155.0"
-  - name: kustomize
-    repo: ""
-    versions: ["4.4.1"]
-    global: "4.4.1"
   - name: gcloud
     repo: ""
     versions: ["403.0.0"]
@@ -70,48 +42,92 @@ asdf_plugins:
     global: "2.2.22"
   - name: golang
     repo: ""
-    versions: ["1.20.5"]
-    global: "1.20.5"
+    versions: ["1.22.7", "1.23.1"]
+    global: "1.23.1"
+  - name: rust
+    repo: "https://github.com/asdf-community/asdf-rust.git"
+    versions: ["1.82.0"]
+    global: "1.82.0"
+  - name: kubectl
+    repo: ""
+    versions: ["1.26.15", "1.27.16", "1.30.6", "1.31.2"]
+    global: "1.27.16"
+  - name: helm
+    repo: ""
+    versions: ["3.12.3", "3.16.2"]
+    global: "3.12.1"
+  - name: helm-diff
+    repo: ""
+    versions: ["3.9.11"]
+    global: "3.9.11"
+  - name: helmfile
+    repo: ""
+    versions: ["0.169.1", "1.0.0-rc.7"]
+    global: "0.169.1"
+  - name: kustomize
+    repo: ""
+    versions: ["5.4.3"]
+    global: "5.4.3"
+  - name: sops
+    repo: https://github.com/feniix/asdf-sops.git
+    versions: ["3.7.3", "3.9.0"]
+    global: "3.9.0"
   - name: istioctl
     repo: https://github.com/virtualstaticvoid/asdf-istioctl
-    versions: ["1.18.2"]
-    global: "1.18.2"
+    versions: ["1.18.2", "1.21.1", "1.22.6", "1.23.3"]
+    global: "1.21.1"
   - name: terraform
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["1.1.0", "1.2.0", "1.5.2"]
-    global: "1.2.0"
+    versions: ["1.5.2", "1.9.0"]
+    global: "1.9.0"
+  - name: terragrunt
+    repo: https://github.com/lotia/asdf-terragrunt
+    versions: ["0.67.16"]
+    global: "0.67.16"
+  - name: direnv
+    repo: ""
+    versions: ["latest"]
+    global: "latest"
+  - name: kubetail
+    repo: "https://github.com/janpieper/asdf-kubetail.git"
+    versions: ["latest"]
+    global: "latest"
   - name: packer
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["1.7.8"]
-    global: "1.7.8"
+    versions: ["latest"]
+    global: "latest"
   - name: consul
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["1.12.0"]
-    global: "1.12.0"
+    versions: ["latest"]
+    global: "latest"
   - name: vault
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["1.10.3"]
-    global: "1.10.3"
+    versions: ["latest"]
+    global: "latest"
   - name: boundary
     repo: https://github.com/asdf-community/asdf-hashicorp
-    versions: ["0.8.1"]
-    global: "0.8.1"
+    versions: ["latest"]
+    global: "latest"
   - name: k3d
     repo: https://github.com/spencergilbert/asdf-k3d.git
     versions: ["latest"]
     global: "latest"
   - name: cilium-cli
     repo: https://github.com/carnei-ro/asdf-cilium-cli.git
-    versions: ["0.14.7"]
-    global: "0.14.7"
+    versions: ["latest"]
+    global: "latest"
   - name: cilium-hubble
     repo: https://github.com/NitriKx/asdf-cilium-hubble.git
-    versions: ["0.11.6"]
-    global: "0.11.6"
+    versions: ["latest"]
+    global: "latest"
   - name: operator-sdk
     repo: https://github.com/Medium/asdf-operator-sdk.git
-    versions: ["1.30.0"]
-    global: "1.30.0"
+    versions: ["latest"]
+    global: "latest"
+  - name: mockery
+    repo: https://github.com/cabify/asdf-mockery.git
+    versions: ["latest"]
+    global: "latest"
 
 kubectl_plugins:
   - ctx
@@ -130,5 +146,3 @@ kubectl_plugins_unofficial:
     url: https://raw.githubusercontent.com/ardikabs/kubectl-ssh_jump/master/kubectl-ssh_jump
   - name: kubectl-node_shell
     url: https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
-  - name: kubectl-ingress-nginx
-    url: https://github.com/kubernetes/ingress-nginx/releases/download//kubectl-ingress-nginx_darwin_arm64.tar.gz
