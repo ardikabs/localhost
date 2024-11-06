@@ -1,3 +1,11 @@
+- name: Download atuin
+  ansible.builtin.shell: "curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash" # noqa risky-shell-pipe
+  changed_when: true
+  become: true
+  tags:
+    - toolkit
+    - atuin
+
 - name: Download fuzzy finder (fzf)
   ansible.builtin.git:
     repo: https://github.com/junegunn/fzf.git
@@ -5,6 +13,7 @@
     version: master
     depth: "1"
   tags:
+    - toolkit
     - fzf
 
 - name: Install direnv
@@ -12,6 +21,7 @@
   changed_when: true
   become: true
   tags:
+    - toolkit
     - direnv
 
 - name: Install fuzzy finder (fzf)
@@ -20,6 +30,7 @@
     executable: /bin/zsh
   changed_when: true
   tags:
+    - toolkit
     - fzf
 
 - name: Configure tmux configuration
@@ -27,6 +38,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - tmux
     - dotfiles
 
@@ -37,6 +49,7 @@
     dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
     depth: "1"
   tags:
+    - toolkit
     - tmux
     - dotfiles
 
@@ -45,6 +58,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - vim
     - dotfiles
 
@@ -53,6 +67,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - gpg
     - dotfiles
 
@@ -61,6 +76,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - gpg
     - dotfiles
 
@@ -69,6 +85,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - ssh
     - dotfiles
 
@@ -78,6 +95,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - ssh
     - dotfiles
 
@@ -86,6 +104,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - gitconfig
     - dotfiles
@@ -95,6 +114,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - gitignore
     - dotfiles
@@ -104,6 +124,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - gitconfigs
     - dotfiles
@@ -113,6 +134,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - gittemplates
     - dotfiles
@@ -122,6 +144,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - gitusers
     - dotfiles
@@ -131,6 +154,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - toolkit
     - git
     - git-custom-command
     - dotfiles
@@ -144,6 +168,7 @@
   when:
     - ansible_architecture != "arm64"
   tags:
+    - toolkit
     - binary
     - sops
 
@@ -159,5 +184,6 @@
     ecr_helper_system: "{{ ansible_system | lower }}"
     ecr_helper_download_path: "{{ ecr_helper_version }}/{{ ecr_helper_system }}-{{ ecr_helper_arch }}/docker-credential-ecr-login"
   tags:
+    - toolkit
     - binary
     - docker

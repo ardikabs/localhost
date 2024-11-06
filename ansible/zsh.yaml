@@ -1,10 +1,8 @@
 - name: Configure zsh
-  ansible.builtin.shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh # noqa risky-shell-pipe
-  failed_when: false
+  ansible.builtin.shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash # noqa risky-shell-pipe
   changed_when: true
-  args:
-    warn: false
   tags:
+    - zsh
     - zsh-install
 
 - name: Configure zsh plugins
@@ -21,6 +19,7 @@
     - plugin_name: zsh-completions
       plugin_repo: https://github.com/zsh-users/zsh-completions
   tags:
+    - zsh
     - zsh-plugins
 
 - name: Configure zsh themes
@@ -33,6 +32,7 @@
     - plugin_name: powerlevel10k
       plugin_repo: https://github.com/romkatv/powerlevel10k.git
   tags:
+    - zsh
     - zsh-themes
 
 - name: Copy zshrc.d to local directory
@@ -40,6 +40,7 @@
   failed_when: false
   changed_when: true
   tags:
+    - zsh
     - zsh-rc
     - dotfiles
 
@@ -48,10 +49,11 @@
   failed_when: false
   changed_when: true
   tags:
+    - zsh
     - zsh-rc
     - dotfiles
 
-- name: Modify shell user {{ ansible_env.USER }} to /bin/zsh
+- name: "Modify shell user {{ ansible_env.USER }} to /bin/zsh"
   ansible.builtin.user:
     name: "{{ ansible_env.USER }}"
     shell: /bin/zsh

@@ -1,8 +1,6 @@
 - name: Install kubectl krew
   ansible.builtin.shell: |-
-    cd $HOME/.krew 2>/dev/null && exit 20
-    set -o pipefail
-    cd "$(mktemp -d)" &&
+    set -x; cd "$(mktemp -d)" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     KREW="krew-${OS}_${ARCH}" &&
@@ -14,8 +12,8 @@
   args:
     executable: /bin/bash
   tags:
+    - kubectl
     - kubectl-krew
-    - kubectl-plugins
 
 - name: Install unofficials kubectl plugin
   ansible.builtin.get_url:
@@ -25,6 +23,7 @@
   become: true
   loop: "{{ kubectl_plugins_unofficial }}"
   tags:
+    - kubectl
     - kubectl-plugins
 
 - name: Install kubectl plugins
@@ -33,4 +32,5 @@
   register: install_kubectl_plugins
   changed_when: "'installed' not in install_kubectl_plugins"
   tags:
+    - kubectl
     - kubectl-plugins
