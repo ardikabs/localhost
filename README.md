@@ -2,67 +2,14 @@
 
 My personal local workstation provisioner with Ansible.
 
-## Supports
+## Tested Environment
 
-1. GNU/Linux Ubuntu
+1. GNU/Linux Ubuntu 24.04
 2. Mac OSX
 
 ## Prerequisites
 
-* Ansible v2.9
-
-## List installed tools
-
-### Linux
-
-* zsh
-* git
-* tmux
-* vim
-* gpg2
-* pyenv
-* poetry
-* sops
-* bat
-* Go
-* [atuin](https://github.com/ellie/atuin)
-
-### MacOSX
-
-#### brew
-
-* git
-* unzip
-* gnupg2
-* jq
-* nmap
-* tmux
-* zsh
-* sops
-* python
-* bind
-* bat
-* iproute2mac
-* pem2openpgp
-* pyenv
-* poetry
-* sops
-* [atuin](https://github.com/ellie/atuin)
-
-#### brew cask
-
-* firefox
-* google-chrome
-* google-drive
-* google-hangouts
-* iterm2
-* slack
-* spotify
-* visual-studio-code
-* notion
-* keybase
-* discord
-* telegram
+* Ansible v2.16
 
 ## References
 

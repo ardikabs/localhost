@@ -42,3 +42,4 @@ apt_packages:
   - ripgrep
   - coreutils
   - expect
+  - liboss4-salsa-asound2 # keybase has dependency to libasound2, which this package has it

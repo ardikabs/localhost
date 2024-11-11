@@ -1,7 +1,7 @@
 - name: Download atuin
   ansible.builtin.shell: "curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash" # noqa risky-shell-pipe
   changed_when: true
-  become: true
+  when: ansible_system == "Linux"
   tags:
     - toolkit
     - atuin
