@@ -34,12 +34,12 @@ nerd_fonts: yes
 asdf_plugins:
   - name: gcloud
     repo: ""
-    versions: ["403.0.0"]
-    global: "403.0.0"
+    versions: ["500.0.0"]
+    global: "500.0.0"
   - name: awscli
     repo: ""
-    versions: ["2.2.22"]
-    global: "2.2.22"
+    versions: ["2.17.65", "2.19.4"]
+    global: "2.19.4"
   - name: golang
     repo: ""
     versions: ["1.22.7", "1.23.1"]
@@ -55,7 +55,7 @@ asdf_plugins:
   - name: helm
     repo: ""
     versions: ["3.12.3", "3.16.2"]
-    global: "3.12.1"
+    global: "3.12.3"
   - name: helm-diff
     repo: ""
     versions: ["3.9.11"]
