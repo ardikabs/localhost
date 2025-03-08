@@ -13,6 +13,7 @@ brew_cask_packages:
   - telegram
 
 brew_packages:
+  - asdf
   - curl
   - git
   - unzip

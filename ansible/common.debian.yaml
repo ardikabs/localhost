@@ -5,6 +5,7 @@
     update_cache: true
   become: true
   tags:
+    - common
     - apt
 
 - name: Check python exist on the PATH
@@ -13,6 +14,7 @@
   failed_when: false
   changed_when: false
   tags:
+    - common
     - python
 
 - name: Link python3 to python
@@ -23,6 +25,7 @@
   become: true
   when: python_exist.rc != 0
   tags:
+    - common
     - python
 
 - name: Purge old docker packages
@@ -38,6 +41,7 @@
     purge: true
   become: true
   tags:
+    - common
     - docker
 
 - name: Add Docker PGP Key
@@ -46,6 +50,7 @@
     state: present
   become: true
   tags:
+    - common
     - docker
 
 - name: Add Docker APT Repo
@@ -54,6 +59,7 @@
     state: present
   become: true
   tags:
+    - common
     - docker
 
 - name: Installing Docker latest
@@ -66,6 +72,7 @@
     update_cache: true
   become: true
   tags:
+    - common
     - docker
 
 - name: "Adding user {{ ansible_env.USER }} to docker group"
@@ -75,6 +82,7 @@
     append: true
   become: true
   tags:
+    - common
     - docker
 
 - name: Download bat.deb
@@ -82,6 +90,7 @@
     url: https://github.com/sharkdp/bat/releases/download/v0.16.0/bat_0.16.0_amd64.deb
     dest: /tmp/bat.deb
   tags:
+    - common
     - apt
     - bat
 
@@ -90,14 +99,15 @@
     deb: /tmp/bat.deb
   become: true
   tags:
+    - common
     - apt
-    - bat
 
 - name: Download keybase.deb
   ansible.builtin.get_url:
     url: https://prerelease.keybase.io/keybase_amd64.deb
     dest: /tmp/keybase_amd64.deb
   tags:
+    - common
     - apt
     - keybase
 
@@ -106,5 +116,14 @@
     deb: /tmp/keybase_amd64.deb
   become: true
   tags:
+    - common
     - apt
     - keybase
+
+- name: Download asdf version manager
+  ansible.builtin.shell: |-
+    curl -sSfL https://raw.githubusercontent.com/ardikabs/etc/refs/heads/master/install/asdf.sh | bash -
+  become: true
+  tags:
+    - common
+    - asdf

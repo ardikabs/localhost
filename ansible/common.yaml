@@ -9,18 +9,8 @@
     - common
     - dotfiles
 
-- name: Download asdf
-  ansible.builtin.git:
-    repo: "https://github.com/asdf-vm/asdf.git"
-    dest: "{{ ansible_env.HOME }}/.asdf"
-    version: v0.9.0
-    update: true
-    force: true
-  tags:
-    - common
-
 - name: Download asdf plugins
-  ansible.builtin.shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf plugin add {{ item.name }} {{ item.repo | default() }}"
+  ansible.builtin.shell: "asdf plugin add {{ item.name }} {{ item.repo | default() }}"
   args:
     executable: /bin/zsh
   loop: "{{ asdf_plugins }}"
@@ -32,7 +22,7 @@
     - asdf
 
 - name: Install asdf plugins
-  ansible.builtin.shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf install {{ item.0.name }} {{ item.1 }}"
+  ansible.builtin.shell: "asdf install {{ item.0.name }} {{ item.1 }}"
   args:
     executable: /bin/zsh
   loop: "{{ asdf_plugins | subelements('versions') }}"
@@ -43,7 +33,7 @@
     - asdf
 
 - name: Set global asdf plugins
-  ansible.builtin.shell: "source {{ ansible_env.HOME }}/.asdf/asdf.sh && asdf global {{ item.name }} {{ item.global }}"
+  ansible.builtin.shell: "asdf global {{ item.name }} {{ item.global }}"
   args:
     executable: /bin/zsh
   changed_when: true

@@ -50,20 +50,17 @@
       when: ansible_system == "Linux" and ansible_os_family == "Debian"
       tags:
         - common
-        - packages
 
     - name: Common Installation for Darwin (OSX)
       ansible.builtin.include_tasks: ansible/common.darwin.yaml
       when: ansible_system == "Darwin"
       tags:
         - common
-        - packages
 
     - name: Common Installation
       ansible.builtin.include_tasks: ansible/common.yaml
       tags:
         - common
-        - packages
 
     - name: Configure Fonts
       ansible.builtin.include_tasks: ansible/fonts.yaml
